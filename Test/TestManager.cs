@@ -27,7 +27,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
             #endregion
 
             string connectionString =
-                ConfigurationManager.ConnectionStrings["COPY_HERE_YOUR_CONNECTION_STRING"].ConnectionString;
+                ConfigurationManager.ConnectionStrings["PracticaMADTest"].ConnectionString;
 
             kernel.Bind<DbContext>().
                 ToSelf().
