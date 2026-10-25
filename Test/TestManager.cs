@@ -1,6 +1,7 @@
 ﻿using Ninject;
 using System.Configuration;
 using System.Data.Entity;
+using Es.Udc.DotNet.PracticaMAD.Model.Persistence;
 
 namespace Es.Udc.DotNet.PracticaMAD.Test
 {
@@ -30,7 +31,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
                 ConfigurationManager.ConnectionStrings["PracticaMADTest"].ConnectionString;
 
             kernel.Bind<DbContext>().
-                ToSelf().
+                To<MarketplaceDbContext>().
                 InSingletonScope().
                 WithConstructorArgument("nameOrConnectionString", connectionString);
 
