@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestManager.cs" />
+    <Compile Include="EntityModelMappingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

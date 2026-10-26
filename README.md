@@ -15,17 +15,17 @@ La solución de Visual Studio (`.sln`) está compuesta por tres proyectos princi
 
 * Contiene las entidades del dominio, la lógica de negocio y los servicios necesarios.
 * Configurada como proyecto de librería para que genere una .dll que pueda ser llamada desde el proyecto Web. En los pasos inciales puede configurarse como proyecto de consola para que genere un .exe con el que sea más sencillo visualizar por pantalla el estado de ejecución (si no se usa el proyecto de test)
-* **Estado actual:** No funcional. Debes implementar las clases, interfaces y lógica requeridas según el enunciado de la práctica.
+* **Estado actual:** La base de datos y el modelo de entidades generado desde SQL Server están preparados. Faltan los DAO y los servicios de los casos de uso.
 
 
 2. **`Test` (Proyecto de pruebas unitarias):**
 * Destinado a albergar las pruebas unitarias para verificar el correcto funcionamiento del proyecto `Model`.
-* **Estado actual:**  No funcional. Incluye la estructura básica y las referencias al proyecto `Model`. Deberás añadir tus propios casos de prueba.
+* **Estado actual:** Incluye una prueba de integración que consulta las seis entidades en una base de pruebas separada. Faltan las pruebas de cada caso de uso.
 
 
 3. **`Web` (Aplicación Web / API):**
 * Interfaz de usuario o punto de entrada de la aplicación que consume los servicios del proyecto `Model`.
-* **Estado actual:**  No funcional. Contiene la configuración inicial pero carece de la funcionalidad completa.
+* **Estado actual:** Conserva código de la plantilla MiniPortal y todavía no está adaptado a la práctica. Se ha excluido de la compilación de la solución durante la primera iteración, que exige `Model` y `Test`.
 
 
 

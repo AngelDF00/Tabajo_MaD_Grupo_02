@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <edmx:Runtime>
+    <edmx:StorageModels>
+      <Schema Namespace="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="EsUdcDotNetPracticaMADModelEntitiesStoreContainer">
+          <EntitySet Name="Categoria" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Categoria" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Comentario" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Comentario" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Producto" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Producto" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Reporte" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Reporte" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Usuario" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Usuario" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Valoracion" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Valoracion" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Comentario_Autor" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.FK_Comentario_Autor">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Producto" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.FK_Comentario_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Categoria" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.FK_Producto_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Vendedor" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.FK_Producto_Vendedor">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reporte_Autor" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.FK_Reporte_Autor">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Reporte" EntitySet="Reporte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reporte_Comentario" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.FK_Reporte_Comentario">
+            <End Role="Comentario" EntitySet="Comentario" />
+            <End Role="Reporte" EntitySet="Reporte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoracion_Autor" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.FK_Valoracion_Autor">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Valoracion" EntitySet="Valoracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoracion_Producto" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.FK_Valoracion_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Valoracion" EntitySet="Valoracion" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="CategoriaId" />
+          </Key>
+          <Property Name="CategoriaId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Comentario">
+          <Key>
+            <PropertyRef Name="ComentarioId" />
+          </Key>
+          <Property Name="ComentarioId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductoId" Type="bigint" Nullable="false" />
+          <Property Name="AutorId" Type="bigint" Nullable="false" />
+          <Property Name="Texto" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime2" Nullable="false" Precision="3" />
+          <Property Name="EnRevision" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="ProductoId" />
+          </Key>
+          <Property Name="ProductoId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="FechaAlta" Type="datetime2" Nullable="false" Precision="3" />
+          <Property Name="VendedorId" Type="bigint" Nullable="false" />
+          <Property Name="CategoriaId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reporte">
+          <Key>
+            <PropertyRef Name="ReporteId" />
+          </Key>
+          <Property Name="ReporteId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ComentarioId" Type="bigint" Nullable="false" />
+          <Property Name="AutorId" Type="bigint" Nullable="false" />
+          <Property Name="Motivo" Type="nvarchar" Nullable="false" MaxLength="1000" />
+          <Property Name="FechaCreacion" Type="datetime2" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="HashContrasena" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Apellidos" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Correo" Type="nvarchar" Nullable="false" MaxLength="254" />
+          <Property Name="Idioma" Type="nvarchar" MaxLength="10" />
+          <Property Name="Pais" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Valoracion">
+          <Key>
+            <PropertyRef Name="ValoracionId" />
+          </Key>
+          <Property Name="ValoracionId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductoId" Type="bigint" Nullable="false" />
+          <Property Name="AutorId" Type="bigint" Nullable="false" />
+          <Property Name="Voto" Type="int" Nullable="false" />
+          <Property Name="Comentario" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FechaCreacion" Type="datetime2" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Comentario_Autor">
+          <End Role="Usuario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Usuario" Multiplicity="1" />
+          <End Role="Comentario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="AutorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Producto">
+          <End Role="Producto" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Producto" Multiplicity="1" />
+          <End Role="Comentario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ProductoId" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Categoria">
+          <End Role="Categoria" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Categoria" Multiplicity="1" />
+          <End Role="Producto" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="CategoriaId" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Vendedor">
+          <End Role="Usuario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Usuario" Multiplicity="1" />
+          <End Role="Producto" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="VendedorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reporte_Autor">
+          <End Role="Usuario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Usuario" Multiplicity="1" />
+          <End Role="Reporte" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Reporte">
+              <PropertyRef Name="AutorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reporte_Comentario">
+          <End Role="Comentario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Comentario" Multiplicity="1" />
+          <End Role="Reporte" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comentario">
+              <PropertyRef Name="ComentarioId" />
+            </Principal>
+            <Dependent Role="Reporte">
+              <PropertyRef Name="ComentarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoracion_Autor">
+          <End Role="Usuario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Usuario" Multiplicity="1" />
+          <End Role="Valoracion" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Valoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Valoracion">
+              <PropertyRef Name="AutorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoracion_Producto">
+          <End Role="Producto" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Producto" Multiplicity="1" />
+          <End Role="Valoracion" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Store.Valoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ProductoId" />
+            </Principal>
+            <Dependent Role="Valoracion">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <edmx:ConceptualModels>
+      <Schema Namespace="Es.Udc.DotNet.PracticaMAD.Model.Entities" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MarketplaceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categoria" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Categoria" />
+          <EntitySet Name="Comentario" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Comentario" />
+          <EntitySet Name="Producto" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Producto" />
+          <EntitySet Name="Reporte" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Reporte" />
+          <EntitySet Name="Usuario" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Usuario" />
+          <EntitySet Name="Valoracion" EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Valoracion" />
+          <AssociationSet Name="FK_Producto_Categoria" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Producto_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Autor" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Comentario_Autor">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Producto" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Comentario_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reporte_Comentario" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Reporte_Comentario">
+            <End Role="Comentario" EntitySet="Comentario" />
+            <End Role="Reporte" EntitySet="Reporte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Vendedor" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Producto_Vendedor">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoracion_Producto" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Valoracion_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Valoracion" EntitySet="Valoracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reporte_Autor" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Reporte_Autor">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Reporte" EntitySet="Reporte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoracion_Autor" Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Valoracion_Autor">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Valoracion" EntitySet="Valoracion" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="CategoriaId" />
+          </Key>
+          <Property Name="CategoriaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Producto" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Producto_Categoria" FromRole="Categoria" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Comentario">
+          <Key>
+            <PropertyRef Name="ComentarioId" />
+          </Key>
+          <Property Name="ComentarioId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductoId" Type="Int64" Nullable="false" />
+          <Property Name="AutorId" Type="Int64" Nullable="false" />
+          <Property Name="Texto" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="EnRevision" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Comentario_Autor" FromRole="Comentario" ToRole="Usuario" />
+          <NavigationProperty Name="Producto" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Comentario_Producto" FromRole="Comentario" ToRole="Producto" />
+          <NavigationProperty Name="Reporte" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Reporte_Comentario" FromRole="Comentario" ToRole="Reporte" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="ProductoId" />
+          </Key>
+          <Property Name="ProductoId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" />
+          <Property Name="VendedorId" Type="Int64" Nullable="false" />
+          <Property Name="CategoriaId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Producto_Categoria" FromRole="Producto" ToRole="Categoria" />
+          <NavigationProperty Name="Comentario" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Comentario_Producto" FromRole="Producto" ToRole="Comentario" />
+          <NavigationProperty Name="Usuario" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Producto_Vendedor" FromRole="Producto" ToRole="Usuario" />
+          <NavigationProperty Name="Valoracion" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Valoracion_Producto" FromRole="Producto" ToRole="Valoracion" />
+        </EntityType>
+        <EntityType Name="Reporte">
+          <Key>
+            <PropertyRef Name="ReporteId" />
+          </Key>
+          <Property Name="ReporteId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComentarioId" Type="Int64" Nullable="false" />
+          <Property Name="AutorId" Type="Int64" Nullable="false" />
+          <Property Name="Motivo" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Comentario" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Reporte_Comentario" FromRole="Reporte" ToRole="Comentario" />
+          <NavigationProperty Name="Usuario" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Reporte_Autor" FromRole="Reporte" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="HashContrasena" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Apellidos" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Correo" Type="String" Nullable="false" MaxLength="254" Unicode="true" FixedLength="false" />
+          <Property Name="Idioma" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="Pais" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Comentario" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Comentario_Autor" FromRole="Usuario" ToRole="Comentario" />
+          <NavigationProperty Name="Producto" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Producto_Vendedor" FromRole="Usuario" ToRole="Producto" />
+          <NavigationProperty Name="Reporte" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Reporte_Autor" FromRole="Usuario" ToRole="Reporte" />
+          <NavigationProperty Name="Valoracion" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Valoracion_Autor" FromRole="Usuario" ToRole="Valoracion" />
+        </EntityType>
+        <EntityType Name="Valoracion">
+          <Key>
+            <PropertyRef Name="ValoracionId" />
+          </Key>
+          <Property Name="ValoracionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductoId" Type="Int64" Nullable="false" />
+          <Property Name="AutorId" Type="Int64" Nullable="false" />
+          <Property Name="Voto" Type="Int32" Nullable="false" />
+          <Property Name="Comentario" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Valoracion_Producto" FromRole="Valoracion" ToRole="Producto" />
+          <NavigationProperty Name="Usuario" Relationship="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Valoracion_Autor" FromRole="Valoracion" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_Producto_Categoria">
+          <End Role="Categoria" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Categoria" Multiplicity="1" />
+          <End Role="Producto" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="CategoriaId" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Autor">
+          <End Role="Usuario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Usuario" Multiplicity="1" />
+          <End Role="Comentario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="AutorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Producto">
+          <End Role="Producto" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Producto" Multiplicity="1" />
+          <End Role="Comentario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ProductoId" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reporte_Comentario">
+          <End Role="Comentario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Comentario" Multiplicity="1" />
+          <End Role="Reporte" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comentario">
+              <PropertyRef Name="ComentarioId" />
+            </Principal>
+            <Dependent Role="Reporte">
+              <PropertyRef Name="ComentarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Vendedor">
+          <End Role="Usuario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Usuario" Multiplicity="1" />
+          <End Role="Producto" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="VendedorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoracion_Producto">
+          <End Role="Producto" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Producto" Multiplicity="1" />
+          <End Role="Valoracion" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Valoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ProductoId" />
+            </Principal>
+            <Dependent Role="Valoracion">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reporte_Autor">
+          <End Role="Usuario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Usuario" Multiplicity="1" />
+          <End Role="Reporte" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Reporte">
+              <PropertyRef Name="AutorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoracion_Autor">
+          <End Role="Usuario" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Usuario" Multiplicity="1" />
+          <End Role="Valoracion" Type="Es.Udc.DotNet.PracticaMAD.Model.Entities.Valoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Valoracion">
+              <PropertyRef Name="AutorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EsUdcDotNetPracticaMADModelEntitiesStoreContainer" CdmEntityContainer="MarketplaceEntities">
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.PracticaMAD.Model.Entities.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comentario">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.PracticaMAD.Model.Entities.Comentario">
+              <MappingFragment StoreEntitySet="Comentario">
+                <ScalarProperty Name="ComentarioId" ColumnName="ComentarioId" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="AutorId" ColumnName="AutorId" />
+                <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="EnRevision" ColumnName="EnRevision" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.PracticaMAD.Model.Entities.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="VendedorId" ColumnName="VendedorId" />
+                <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reporte">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.PracticaMAD.Model.Entities.Reporte">
+              <MappingFragment StoreEntitySet="Reporte">
+                <ScalarProperty Name="ReporteId" ColumnName="ReporteId" />
+                <ScalarProperty Name="ComentarioId" ColumnName="ComentarioId" />
+                <ScalarProperty Name="AutorId" ColumnName="AutorId" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.PracticaMAD.Model.Entities.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="HashContrasena" ColumnName="HashContrasena" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Idioma" ColumnName="Idioma" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Valoracion">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.PracticaMAD.Model.Entities.Valoracion">
+              <MappingFragment StoreEntitySet="Valoracion">
+                <ScalarProperty Name="ValoracionId" ColumnName="ValoracionId" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="AutorId" ColumnName="AutorId" />
+                <ScalarProperty Name="Voto" ColumnName="Voto" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <edmx:Designer>
+    <edmx:Connection>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <edmx:Diagrams />
+  </edmx:Designer>
+</edmx:Edmx>
