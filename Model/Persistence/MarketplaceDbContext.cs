@@ -1,5 +1,6 @@
-using System.Data.Entity;
 using Es.Udc.DotNet.PracticaMAD.Model.Entities;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Es.Udc.DotNet.PracticaMAD.Model.Persistence
 {
@@ -16,5 +17,8 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.Persistence
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Valoracion> Valoraciones { get; set; }
+        public DbSet<Reporte> Reportes { get; set; }
+
     }
 }
