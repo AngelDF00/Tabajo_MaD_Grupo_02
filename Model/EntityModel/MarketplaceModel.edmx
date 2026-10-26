@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <edmx:Runtime>
     <edmx:StorageModels>
@@ -508,6 +508,23 @@
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </edmx:Options>
-    <edmx:Diagrams />
+    <edmx:Diagrams >
+      <edmx:Diagram DiagramId="7c1dd765733b4391b42435fbc9b3fac1" Name="Diagram1">
+        <edmx:EntityTypeShape EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Categoria" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Comentario" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Producto" Width="1.5" PointX="6" PointY="3.125" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Reporte" Width="1.5" PointX="8.25" PointY="3.375" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Usuario" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="Es.Udc.DotNet.PracticaMAD.Model.Entities.Valoracion" Width="1.5" PointX="11.25" PointY="3.25" IsExpanded="true" />
+        <edmx:AssociationConnector Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Producto_Categoria" ManuallyRouted="false" />
+        <edmx:AssociationConnector Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Comentario_Autor" ManuallyRouted="false" />
+        <edmx:AssociationConnector Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Comentario_Producto" ManuallyRouted="false" />
+        <edmx:AssociationConnector Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Reporte_Comentario" ManuallyRouted="false" />
+        <edmx:AssociationConnector Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Producto_Vendedor" ManuallyRouted="false" />
+        <edmx:AssociationConnector Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Valoracion_Producto" ManuallyRouted="false" />
+        <edmx:AssociationConnector Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Reporte_Autor" ManuallyRouted="false" />
+        <edmx:AssociationConnector Association="Es.Udc.DotNet.PracticaMAD.Model.Entities.FK_Valoracion_Autor" ManuallyRouted="false" />
+      </edmx:Diagram>
+    </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

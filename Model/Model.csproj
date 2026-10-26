@@ -114,12 +114,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MarketplaceModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModel\Categoria.cs"><DependentUpon>MarketplaceModel.tt</DependentUpon></Compile>
-    <Compile Include="EntityModel\Comentario.cs"><DependentUpon>MarketplaceModel.tt</DependentUpon></Compile>
-    <Compile Include="EntityModel\Producto.cs"><DependentUpon>MarketplaceModel.tt</DependentUpon></Compile>
-    <Compile Include="EntityModel\Reporte.cs"><DependentUpon>MarketplaceModel.tt</DependentUpon></Compile>
-    <Compile Include="EntityModel\Usuario.cs"><DependentUpon>MarketplaceModel.tt</DependentUpon></Compile>
-    <Compile Include="EntityModel\Valoracion.cs"><DependentUpon>MarketplaceModel.tt</DependentUpon></Compile>
+    <Compile Include="EntityModel\Categoria.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Comentario.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Producto.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Reporte.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Usuario.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Valoracion.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioDao\IUsuarioDao.cs" />
+    <Compile Include="UsuarioDao\UsuarioDaoEntityFramework.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

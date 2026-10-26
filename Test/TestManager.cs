@@ -1,6 +1,7 @@
 ﻿using Ninject;
 using System.Data.Entity;
 using Es.Udc.DotNet.PracticaMAD.Model.Entities;
+using Es.Udc.DotNet.PracticaMAD.Model.UsuarioDao;
 
 namespace Es.Udc.DotNet.PracticaMAD.Test
 {
@@ -29,6 +30,9 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
             kernel.Bind<DbContext>().
                 To<MarketplaceEntities>().
                 InSingletonScope();
+
+            kernel.Bind<IUsuarioDao>().
+                To<UsuarioDaoEntityFramework>();
 
             return kernel;
         }
