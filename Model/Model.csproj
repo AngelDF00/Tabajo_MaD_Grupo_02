@@ -106,6 +106,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Categoria.cs" />
+    <Compile Include="Entities\Producto.cs" />
     <Compile Include="Entities\Reporte.cs" />
     <Compile Include="Entities\Valoracion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
