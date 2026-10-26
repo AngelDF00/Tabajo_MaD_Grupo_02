@@ -1,7 +1,7 @@
 ﻿using Ninject;
-using System.Configuration;
 using System.Data.Entity;
-using Es.Udc.DotNet.PracticaMAD.Model.Persistence;
+using Es.Udc.DotNet.PracticaMAD.Model.Entities;
+using Es.Udc.DotNet.PracticaMAD.Model.UsuarioDao;
 
 namespace Es.Udc.DotNet.PracticaMAD.Test
 {
@@ -27,13 +27,12 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
 
             #endregion
 
-            string connectionString =
-                ConfigurationManager.ConnectionStrings["PracticaMADTest"].ConnectionString;
-
             kernel.Bind<DbContext>().
-                To<MarketplaceDbContext>().
-                InSingletonScope().
-                WithConstructorArgument("nameOrConnectionString", connectionString);
+                To<MarketplaceEntities>().
+                InSingletonScope();
+
+            kernel.Bind<IUsuarioDao>().
+                To<UsuarioDaoEntityFramework>();
 
             return kernel;
         }

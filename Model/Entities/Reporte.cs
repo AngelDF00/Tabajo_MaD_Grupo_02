@@ -1,32 +1,15 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Es.Udc.DotNet.PracticaMAD.Model.Entities
 {
-    [Table("Reporte", Schema = "dbo")]
-    public class Reporte
+    public partial class Reporte
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ReporteId { get; set; }
-
-        [Required]
-        public long ComentarioId { get; set; }
-
-        [Required]
-        public long AutorId { get; set; }
-
-        [Required, MaxLength(1000)]
-        public string Motivo { get; set; }
-
-        [Required]
-        public DateTime FechaCreacion { get; set; }
-
-        [ForeignKey("ComentarioId")]
-        public virtual Comentario Comentario { get; set; }
-
-        [ForeignKey("AutorId")]
-        public virtual Usuario Autor { get; set; }
+        // Alias de la relación AutorId para conservar el nombre usado por el módulo de reportes.
+        [NotMapped]
+        public virtual Usuario Autor
+        {
+            get { return Usuario; }
+            set { Usuario = value; }
+        }
     }
 }

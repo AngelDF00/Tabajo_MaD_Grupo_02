@@ -111,8 +111,31 @@
     <Compile Include="Entities\Reporte.cs" />
     <Compile Include="Entities\Valoracion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\Usuario.cs" />
-    <Compile Include="Persistence\MarketplaceDbContext.cs" />
+    <Compile Include="EntityModel\MarketplaceModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MarketplaceModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Categoria.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Comentario.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Producto.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Reporte.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Usuario.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Valoracion.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioDao\IUsuarioDao.cs" />
+    <Compile Include="UsuarioDao\UsuarioDaoEntityFramework.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -124,6 +147,22 @@
     </None>
     <None Include="SQL\SqlServerInsertDemoData.sql" />
     <None Include="SQL\README.md" />
+    <None Include="EntityModel\MarketplaceModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MarketplaceModel.Context.cs</LastGenOutput>
+      <DependentUpon>MarketplaceModel.edmx</DependentUpon>
+    </None>
+    <None Include="EntityModel\MarketplaceModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MarketplaceModel.cs</LastGenOutput>
+      <DependentUpon>MarketplaceModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="EntityModel\MarketplaceModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MarketplaceModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
