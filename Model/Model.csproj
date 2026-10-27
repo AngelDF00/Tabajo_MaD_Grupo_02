@@ -106,10 +106,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAO\ComentarioDaoEntityFramework.cs" />
-    <Compile Include="DAO\IComentarioDao.cs" />
-    <Compile Include="DAO\IProductoDao.cs" />
-    <Compile Include="DAO\ProductoDaoEntityFramework.cs" />
+    <Compile Include="DAO\ComentarioDao\ComentarioDaoEntityFramework.cs" />
+    <Compile Include="DAO\ComentarioDao\IComentarioDao.cs" />
+    <Compile Include="DAO\ProductoDao\IProductoDao.cs" />
+    <Compile Include="DAO\ProductoDao\ProductoDaoEntityFramework.cs" />
     <Compile Include="Entities\Reporte.cs" />
     <Compile Include="Entities\Valoracion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,9 +215,7 @@
     <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.11.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
     <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.11.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SERVICES\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
