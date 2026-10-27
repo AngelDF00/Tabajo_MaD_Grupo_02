@@ -106,6 +106,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\ComentarioDaoEntityFramework.cs" />
+    <Compile Include="DAO\IComentarioDao.cs" />
+    <Compile Include="DAO\IProductoDao.cs" />
+    <Compile Include="DAO\ProductoDaoEntityFramework.cs" />
     <Compile Include="Entities\Reporte.cs" />
     <Compile Include="Entities\Valoracion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -212,7 +216,6 @@
     <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.11.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DAO\" />
     <Folder Include="SERVICES\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
