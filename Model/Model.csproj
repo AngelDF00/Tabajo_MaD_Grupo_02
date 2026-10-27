@@ -136,12 +136,14 @@
     <Compile Include="EntityModel\Valoracion.cs">
       <DependentUpon>MarketplaceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="UsuarioDao\IUsuarioDao.cs" />
-    <Compile Include="UsuarioDao\UsuarioDaoEntityFramework.cs" />
-    <Compile Include="UsuarioService\ContrasenaActualIncorrectaException.cs" />
-    <Compile Include="UsuarioService\DatosPerfilUsuario.cs" />
-    <Compile Include="UsuarioService\IUsuarioService.cs" />
-    <Compile Include="UsuarioService\PerfilUsuario.cs" />
+    <Compile Include="DAO\UsuarioDao\IUsuarioDao.cs" />
+    <Compile Include="DAO\UsuarioDao\UsuarioDaoEntityFramework.cs" />
+    <Compile Include="SERVICES\UsuarioService\ContrasenaActualIncorrectaException.cs" />
+    <Compile Include="SERVICES\UsuarioService\ContrasenaHash.cs" />
+    <Compile Include="SERVICES\UsuarioService\DatosPerfilUsuario.cs" />
+    <Compile Include="SERVICES\UsuarioService\IUsuarioService.cs" />
+    <Compile Include="SERVICES\UsuarioService\PerfilUsuario.cs" />
+    <Compile Include="SERVICES\UsuarioService\UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
