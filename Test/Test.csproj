@@ -106,6 +106,7 @@
     <Compile Include="TestManager.cs" />
     <Compile Include="EntityModelMappingTest.cs" />
     <Compile Include="UsuarioDaoTest.cs" />
+    <Compile Include="UsuarioServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

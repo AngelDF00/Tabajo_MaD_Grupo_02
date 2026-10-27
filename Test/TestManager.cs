@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using Es.Udc.DotNet.PracticaMAD.Model.Entities;
 using Es.Udc.DotNet.PracticaMAD.Model.UsuarioDao;
+using Es.Udc.DotNet.PracticaMAD.Model.UsuarioService;
 
 namespace Es.Udc.DotNet.PracticaMAD.Test
 {
@@ -33,6 +34,9 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
 
             kernel.Bind<IUsuarioDao>().
                 To<UsuarioDaoEntityFramework>();
+
+            kernel.Bind<IUsuarioService>().
+                To<UsuarioService>();
 
             return kernel;
         }
