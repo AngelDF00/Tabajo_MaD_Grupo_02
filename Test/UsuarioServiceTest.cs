@@ -73,5 +73,49 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
                 TestManager.ClearNInjectKernel(kernel);
             }
         }
+
+        [TestMethod]
+        public void AutenticarDevuelveIdSoloConCredencialesCorrectas()
+        {
+            var kernel = TestManager.ConfigureNInjectKernel();
+
+            try
+            {
+                var contexto = kernel.Get<DbContext>();
+                var servicio = kernel.Get<IUsuarioService>();
+                var login = "auth_" +
+                    Guid.NewGuid().ToString("N").Substring(0, 12);
+                const string contrasena = "Clave123!";
+
+                var datos = new DatosPerfilUsuario
+                {
+                    Nombre = "Prueba",
+                    Apellidos = "Autenticación",
+                    Correo = "auth@example.invalid"
+                };
+
+                using (var transaccion = contexto.Database.BeginTransaction())
+                {
+                    long usuarioId = servicio.RegistrarUsuario(
+                        login, contrasena, datos);
+
+                    Assert.AreEqual(
+                        (long?)usuarioId,
+                        servicio.Autenticar(login.ToUpperInvariant(), contrasena));
+
+                    Assert.IsNull(
+                        servicio.Autenticar(login, "ClaveIncorrecta!"));
+
+                    Assert.IsNull(
+                        servicio.Autenticar(login + "_ausente", contrasena));
+
+                    transaccion.Rollback();
+                }
+            }
+            finally
+            {
+                TestManager.ClearNInjectKernel(kernel);
+            }
+        }
     }
 }
