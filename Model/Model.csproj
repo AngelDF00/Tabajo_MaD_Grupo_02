@@ -134,6 +134,10 @@
     </Compile>
     <Compile Include="UsuarioDao\IUsuarioDao.cs" />
     <Compile Include="UsuarioDao\UsuarioDaoEntityFramework.cs" />
+    <Compile Include="UsuarioService\ContrasenaActualIncorrectaException.cs" />
+    <Compile Include="UsuarioService\DatosPerfilUsuario.cs" />
+    <Compile Include="UsuarioService\IUsuarioService.cs" />
+    <Compile Include="UsuarioService\PerfilUsuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
