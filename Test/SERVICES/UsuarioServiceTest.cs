@@ -117,5 +117,62 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
                 TestManager.ClearNInjectKernel(kernel);
             }
         }
+
+        [TestMethod]
+        public void ObtenerPerfilDevuelveDatosYRechazaIdInexistente()
+        {
+            var kernel = TestManager.ConfigureNInjectKernel();
+
+            try
+            {
+                var contexto = kernel.Get<DbContext>();
+                var servicio = kernel.Get<IUsuarioService>();
+                var login = "perfil_" +
+                    Guid.NewGuid().ToString("N").Substring(0, 12);
+
+                var datos = new DatosPerfilUsuario
+                {
+                    Nombre = "Prueba",
+                    Apellidos = "Perfil",
+                    Correo = "perfil@example.invalid",
+                    Idioma = "es",
+                    Pais = "España"
+                };
+
+                using (var transaccion = contexto.Database.BeginTransaction())
+                {
+                    long usuarioId = servicio.RegistrarUsuario(
+                        login, "Clave123!", datos);
+
+                    PerfilUsuario perfil = servicio.ObtenerPerfil(usuarioId);
+
+                    Assert.AreEqual(usuarioId, perfil.UsuarioId);
+                    Assert.AreEqual(login, perfil.Login);
+                    Assert.AreEqual(datos.Nombre, perfil.Nombre);
+                    Assert.AreEqual(datos.Apellidos, perfil.Apellidos);
+                    Assert.AreEqual(datos.Correo, perfil.Correo);
+                    Assert.AreEqual(datos.Idioma, perfil.Idioma);
+                    Assert.AreEqual(datos.Pais, perfil.Pais);
+
+                    bool noEncontrado = false;
+
+                    try
+                    {
+                        servicio.ObtenerPerfil(long.MaxValue);
+                    }
+                    catch (InstanceNotFoundException)
+                    {
+                        noEncontrado = true;
+                    }
+
+                    Assert.IsTrue(noEncontrado);
+                    transaccion.Rollback();
+                }
+            }
+            finally
+            {
+                TestManager.ClearNInjectKernel(kernel);
+            }
+        }
     }
 }

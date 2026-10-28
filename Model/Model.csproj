@@ -114,8 +114,6 @@
     <Compile Include="DAO\ReportesDao\ReporteDaoEntityFramework.cs" />
     <Compile Include="DAO\ValoracionDao\IValoracionDao.cs" />
     <Compile Include="DAO\ValoracionDao\ValoracionDaoEntityFramework.cs" />
-    <Compile Include="Entities\Reporte.cs" />
-    <Compile Include="Entities\Valoracion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EntityModel\MarketplaceModel.Context.cs">
       <AutoGen>True</AutoGen>

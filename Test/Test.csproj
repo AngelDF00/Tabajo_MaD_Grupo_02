@@ -104,9 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestManager.cs" />
-    <Compile Include="EntityModelMappingTest.cs" />
-    <Compile Include="UsuarioDaoTest.cs" />
-    <Compile Include="UsuarioServiceTest.cs" />
+    <Compile Include="EntityModel\EntityModelMappingTest.cs" />
+    <Compile Include="DAO\UsuarioDaoTest.cs" />
+    <Compile Include="SERVICES\UsuarioServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

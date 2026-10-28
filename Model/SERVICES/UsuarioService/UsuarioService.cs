@@ -24,7 +24,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
                 throw new ArgumentNullException(nameof(datos));
 
             ValidarRequerido(login, 30, nameof(login));
-            ValidarRequerido(contrasena, int.MaxValue /*Preguntar tamaño máximo*/, nameof(contrasena));
+            ValidarRequerido(contrasena, 30, nameof(contrasena));
             ValidarRequerido(datos.Nombre, 50, nameof(datos.Nombre));
             ValidarRequerido(datos.Apellidos, 100, nameof(datos.Apellidos));
             ValidarRequerido(datos.Correo, 254, nameof(datos.Correo));
@@ -69,7 +69,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
         public long? Autenticar(string login, string contrasena)
         {
             ValidarRequerido(login, 30, nameof(login));
-            ValidarRequerido(contrasena, int.MaxValue, nameof(contrasena));
+            ValidarRequerido(contrasena, 30, nameof(contrasena));
 
             string loginNormalizado = login.Trim().ToLowerInvariant();
             Usuario usuario = usuarioDao.FindByLogin(loginNormalizado);
@@ -83,7 +83,22 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
 
         public PerfilUsuario ObtenerPerfil(long usuarioId)
         {
-            throw new NotImplementedException();
+            Usuario usuario = usuarioDao.Find(usuarioId);
+
+            if (usuario == null)
+                throw new InstanceNotFoundException(
+                    usuarioId, typeof(Usuario).FullName);
+
+            return new PerfilUsuario
+            {
+                UsuarioId = usuario.UsuarioId,
+                Login = usuario.Login,
+                Nombre = usuario.Nombre,
+                Apellidos = usuario.Apellidos,
+                Correo = usuario.Correo,
+                Idioma = usuario.Idioma,
+                Pais = usuario.Pais
+            };
         }
 
         public void ActualizarPerfil(long usuarioId, DatosPerfilUsuario datos)
