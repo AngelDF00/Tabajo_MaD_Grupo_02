@@ -174,5 +174,66 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
                 TestManager.ClearNInjectKernel(kernel);
             }
         }
+
+        [TestMethod]
+        public void ActualizarPerfilGuardaCambiosSinModificarLoginNiContrasena()
+        {
+            var kernel = TestManager.ConfigureNInjectKernel();
+
+            try
+            {
+                var contexto = kernel.Get<DbContext>();
+                var servicio = kernel.Get<IUsuarioService>();
+                var login = "editar_" + Guid.NewGuid().ToString("N").Substring(0, 12);
+                const string contrasena = "Clave123!";
+
+                var datosIniciales = new DatosPerfilUsuario
+                {
+                    Nombre = "Nombre inicial",
+                    Apellidos = "Apellidos iniciales",
+                    Correo = "inicial@example.invalid"
+                };
+
+                using (var transaccion = contexto.Database.BeginTransaction())
+                {
+                    long usuarioId = servicio.RegistrarUsuario(
+                        login, contrasena, datosIniciales);
+
+                    var antes = contexto.Set<Usuario>()
+                        .AsNoTracking()
+                        .Single(u => u.UsuarioId == usuarioId);
+                    string hashAnterior = antes.HashContrasena;
+
+                    var datosNuevos = new DatosPerfilUsuario
+                    {
+                        Nombre = "Nombre nuevo",
+                        Apellidos = "Apellidos nuevos",
+                        Correo = "nuevo@example.invalid",
+                        Idioma = "es",
+                        Pais = "España"
+                    };
+
+                    servicio.ActualizarPerfil(usuarioId, datosNuevos);
+
+                    var despues = contexto.Set<Usuario>()
+                        .AsNoTracking()
+                        .Single(u => u.UsuarioId == usuarioId);
+
+                    Assert.AreEqual(datosNuevos.Nombre, despues.Nombre);
+                    Assert.AreEqual(datosNuevos.Apellidos, despues.Apellidos);
+                    Assert.AreEqual(datosNuevos.Correo, despues.Correo);
+                    Assert.AreEqual(datosNuevos.Idioma, despues.Idioma);
+                    Assert.AreEqual(datosNuevos.Pais, despues.Pais);
+                    Assert.AreEqual(login, despues.Login);
+                    Assert.AreEqual(hashAnterior, despues.HashContrasena);
+
+                    transaccion.Rollback();
+                }
+            }
+            finally
+            {
+                TestManager.ClearNInjectKernel(kernel);
+            }
+        }
     }
 }

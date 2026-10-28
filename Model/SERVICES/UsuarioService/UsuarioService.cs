@@ -103,7 +103,28 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
 
         public void ActualizarPerfil(long usuarioId, DatosPerfilUsuario datos)
         {
-            throw new NotImplementedException();
+            if (datos == null)
+                throw new ArgumentNullException(nameof(datos));
+
+            ValidarRequerido(datos.Nombre, 50, nameof(datos.Nombre));
+            ValidarRequerido(datos.Apellidos, 100, nameof(datos.Apellidos));
+            ValidarRequerido(datos.Correo, 254, nameof(datos.Correo));
+
+            if (datos.Idioma != null && datos.Idioma.Length > 10)
+                throw new ArgumentException("Idioma demasiado largo.", nameof(datos));
+
+            if (datos.Pais != null && datos.Pais.Length > 100)
+                throw new ArgumentException("País demasiado largo.", nameof(datos));
+
+            Usuario usuario = usuarioDao.Find(usuarioId);
+
+            usuario.Nombre = datos.Nombre.Trim();
+            usuario.Apellidos = datos.Apellidos.Trim();
+            usuario.Correo = datos.Correo.Trim();
+            usuario.Idioma = datos.Idioma;
+            usuario.Pais = datos.Pais;
+
+            contexto.SaveChanges();
         }
 
         public void CambiarContrasena(
