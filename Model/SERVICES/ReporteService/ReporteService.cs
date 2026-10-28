@@ -11,12 +11,19 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ReporteService
 {
     public class ReporteService : IReporteService
     {
-        public IReporteDao ReporteDao { get; set; }
-        public IComentarioDao ComentarioDao { get; set; }
+        private readonly IReporteDao reporteDao;
+        private readonly IComentarioDao comentarioDao;
+
+        // Inyección por constructor para que Ninject le pase las instancias automáticamente
+        public ReporteService(IReporteDao reporteDao, IComentarioDao comentarioDao)
+        {
+            this.reporteDao = reporteDao;
+            this.comentarioDao = comentarioDao;
+        }
 
         public long ReportarComentario(long autorId, long comentarioId, string motivo, int umbralRevision)
         {
-            if (ReporteDao.Exists(comentarioId, autorId))
+            if (reporteDao.Exists(comentarioId, autorId))
             {
                 throw new ComentarioYaReportadoException(comentarioId, autorId);
             }
@@ -29,16 +36,16 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ReporteService
                 FechaCreacion = DateTime.UtcNow
             };
 
-            ReporteDao.Create(reporte);
+            reporteDao.Create(reporte);
 
-            int totalReportes = ReporteDao.CountByComentarioId(comentarioId);
+            int totalReportes = reporteDao.CountByComentarioId(comentarioId);
             if (totalReportes >= umbralRevision)
             {
-                var comentario = ComentarioDao.Find(comentarioId);
+                var comentario = comentarioDao.Find(comentarioId);
                 if (comentario != null && !comentario.EnRevision)
                 {
                     comentario.EnRevision = true;
-                    ComentarioDao.Update(comentario);
+                    comentarioDao.Update(comentario);
                 }
             }
 
