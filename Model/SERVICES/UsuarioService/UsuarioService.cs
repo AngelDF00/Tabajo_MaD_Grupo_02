@@ -83,7 +83,22 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
 
         public PerfilUsuario ObtenerPerfil(long usuarioId)
         {
-            throw new NotImplementedException();
+            Usuario usuario = usuarioDao.Find(usuarioId);
+
+            if (usuario == null)
+                throw new InstanceNotFoundException(
+                    usuarioId, typeof(Usuario).FullName);
+
+            return new PerfilUsuario
+            {
+                UsuarioId = usuario.UsuarioId,
+                Login = usuario.Login,
+                Nombre = usuario.Nombre,
+                Apellidos = usuario.Apellidos,
+                Correo = usuario.Correo,
+                Idioma = usuario.Idioma,
+                Pais = usuario.Pais
+            };
         }
 
         public void ActualizarPerfil(long usuarioId, DatosPerfilUsuario datos)
