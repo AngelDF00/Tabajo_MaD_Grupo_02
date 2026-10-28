@@ -29,7 +29,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
         public void UpdateComentario (long userId, Comentario comentario)
         {
             //Accedemos a base de datos para saber el autorId del comentario en BD es el del usuario  por seguridad
-            Comentario comentarioInDb = comentarioDao.Find(comentario.ComentarioId)
+            Comentario comentarioInDb = comentarioDao.Find(comentario.ComentarioId);
             if (comentarioInDb.AutorId != userId)
             {
                 throw new UnauthorizedAccessException("ComentarioService.UpdateComentario.PermissionException");
