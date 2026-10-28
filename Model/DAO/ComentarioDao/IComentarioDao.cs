@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Es.Udc.DotNet.PracticaMAD.Model.DAO
 {
-    internal interface IComentarioDao : IGenericDao<Comentario, long>
+    public interface IComentarioDao : IGenericDao<Comentario, long>
     {
         List<Comentario> FindByProductoIdOrderByFechaCreacionDesc(long productoId, int startIndex, int count);
     }

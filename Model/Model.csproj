@@ -142,12 +142,18 @@
     </Compile>
     <Compile Include="DAO\UsuarioDao\IUsuarioDao.cs" />
     <Compile Include="DAO\UsuarioDao\UsuarioDaoEntityFramework.cs" />
+    <Compile Include="SERVICES\ReporteService\IReporteService.cs" />
+    <Compile Include="SERVICES\ReporteService\ReporteService.cs" />
     <Compile Include="SERVICES\UsuarioService\ContrasenaActualIncorrectaException.cs" />
     <Compile Include="SERVICES\UsuarioService\ContrasenaHash.cs" />
     <Compile Include="SERVICES\UsuarioService\DatosPerfilUsuario.cs" />
     <Compile Include="SERVICES\UsuarioService\IUsuarioService.cs" />
     <Compile Include="SERVICES\UsuarioService\PerfilUsuario.cs" />
+    <Compile Include="SERVICES\ReporteService\ComentarioYaReportadoException.cs" />
     <Compile Include="SERVICES\UsuarioService\UsuarioService.cs" />
+    <Compile Include="SERVICES\ValoracionService\IValoracionService.cs" />
+    <Compile Include="SERVICES\ValoracionService\ResultadoValoraciones.cs" />
+    <Compile Include="SERVICES\ValoracionService\ValoracionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
