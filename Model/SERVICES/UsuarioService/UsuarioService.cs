@@ -24,7 +24,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
                 throw new ArgumentNullException(nameof(datos));
 
             ValidarRequerido(login, 30, nameof(login));
-            ValidarRequerido(contrasena, int.MaxValue /*Preguntar tamaño máximo*/, nameof(contrasena));
+            ValidarRequerido(contrasena, 30, nameof(contrasena));
             ValidarRequerido(datos.Nombre, 50, nameof(datos.Nombre));
             ValidarRequerido(datos.Apellidos, 100, nameof(datos.Apellidos));
             ValidarRequerido(datos.Correo, 254, nameof(datos.Correo));
@@ -69,7 +69,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
         public long? Autenticar(string login, string contrasena)
         {
             ValidarRequerido(login, 30, nameof(login));
-            ValidarRequerido(contrasena, int.MaxValue, nameof(contrasena));
+            ValidarRequerido(contrasena, 30, nameof(contrasena));
 
             string loginNormalizado = login.Trim().ToLowerInvariant();
             Usuario usuario = usuarioDao.FindByLogin(loginNormalizado);
