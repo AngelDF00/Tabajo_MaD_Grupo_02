@@ -17,6 +17,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.DAO
             var result =
                     (from p in productos
                      where p.Nombre.Contains(keyword)
+                     orderby p.FechaAlta descending
                      select p).Skip(startIndex).Take(count).ToList();
 
             return result;

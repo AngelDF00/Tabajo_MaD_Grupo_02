@@ -6,6 +6,8 @@ using Es.Udc.DotNet.PracticaMAD.Model.UsuarioService;
 using Es.Udc.DotNet.PracticaMAD.Model.DAO;
 using Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService;
 using Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ReporteService;
+using Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ProductoService;
+using Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService;
 
 namespace Es.Udc.DotNet.PracticaMAD.Test
 {
@@ -58,6 +60,12 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
 
             kernel.Bind<IProductoDao>().
                 To<ProductoDaoEntityFramework>();
+
+            kernel.Bind<IProductoService>().
+                To<ProductoService>();
+
+            kernel.Bind<IComentarioService>().
+                To<ComentarioService>();
 
             return kernel;
         }
