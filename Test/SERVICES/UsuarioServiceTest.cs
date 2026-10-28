@@ -235,5 +235,72 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
                 TestManager.ClearNInjectKernel(kernel);
             }
         }
+
+        [TestMethod]
+        public void CambiarContrasenaCompruebaActualYGuardaNuevoHash()
+        {
+            var kernel = TestManager.ConfigureNInjectKernel();
+
+            try
+            {
+                var contexto = kernel.Get<DbContext>();
+                var servicio = kernel.Get<IUsuarioService>();
+                var login = "clave_" + Guid.NewGuid().ToString("N").Substring(0, 12);
+                const string contrasenaActual = "Clave123!";
+                const string contrasenaNueva = "NuevaClave456!";
+
+                var datos = new DatosPerfilUsuario
+                {
+                    Nombre = "Prueba",
+                    Apellidos = "Contraseña",
+                    Correo = "clave@example.invalid"
+                };
+
+                using (var transaccion = contexto.Database.BeginTransaction())
+                {
+                    long usuarioId = servicio.RegistrarUsuario(
+                        login, contrasenaActual, datos);
+
+                    string hashAnterior = contexto.Set<Usuario>()
+                        .AsNoTracking()
+                        .Single(u => u.UsuarioId == usuarioId)
+                        .HashContrasena;
+
+                    bool actualIncorrecta = false;
+
+                    try
+                    {
+                        servicio.CambiarContrasena(
+                            usuarioId, "ClaveEquivocada", contrasenaNueva);
+                    }
+                    catch (ContrasenaActualIncorrectaException)
+                    {
+                        actualIncorrecta = true;
+                    }
+
+                    Assert.IsTrue(actualIncorrecta);
+
+                    servicio.CambiarContrasena(
+                        usuarioId, contrasenaActual, contrasenaNueva);
+
+                    var guardado = contexto.Set<Usuario>()
+                        .AsNoTracking()
+                        .Single(u => u.UsuarioId == usuarioId);
+
+                    Assert.AreNotEqual(hashAnterior, guardado.HashContrasena);
+                    Assert.AreNotEqual(contrasenaNueva, guardado.HashContrasena);
+                    Assert.IsNull(servicio.Autenticar(login, contrasenaActual));
+                    Assert.AreEqual(
+                        (long?)usuarioId,
+                        servicio.Autenticar(login, contrasenaNueva));
+
+                    transaccion.Rollback();
+                }
+            }
+            finally
+            {
+                TestManager.ClearNInjectKernel(kernel);
+            }
+        }
     }
 }
