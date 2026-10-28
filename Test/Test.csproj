@@ -113,7 +113,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="SERVICES\ValoracionServiceTest.cs" />
     <Compile Include="TestManager.cs" />
     <Compile Include="EntityModel\EntityModelMappingTest.cs" />
