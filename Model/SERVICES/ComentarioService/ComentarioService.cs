@@ -7,7 +7,12 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
 {
     public class ComentarioService : IComentarioService
     {
-        private IComentarioDao comentarioDao {  get; set; }
+        private readonly IComentarioDao comentarioDao;
+
+        public ComentarioService(IComentarioDao comentarioDao)
+        {
+            this.comentarioDao = comentarioDao;
+        }
 
         public void CreateComentario (Comentario comentario)
         {
@@ -26,18 +31,24 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
             comentarioDao.Remove(comentarioId);
         }
 
-        public void UpdateComentario (long userId, Comentario comentario)
+        public void UpdateComentario (long userId, string nuevoTexto, long comentarioId)
         {
             //Accedemos a base de datos para saber el autorId del comentario en BD es el del usuario  por seguridad
-            Comentario comentarioInDb = comentarioDao.Find(comentario.ComentarioId);
-            if (comentarioInDb.AutorId != userId)
+            Comentario comentario = comentarioDao.Find(comentarioId);
+
+            if (comentario == null) // Buena práctica: verificar si existe
+            {
+                throw new KeyNotFoundException("ComentarioService.UpdateComentario.KeyNotFoundException");
+            }
+
+            if (comentario.AutorId != userId)
             {
                 throw new UnauthorizedAccessException("ComentarioService.UpdateComentario.PermissionException");
             }
 
-            //Por seguridad nos aseguramos de que el AutorId siga siendo el mismo
-            comentario.AutorId = comentarioInDb.AutorId;
             
+            comentario.Texto = nuevoTexto;
+
             comentarioDao.Update(comentario);
         }
 
