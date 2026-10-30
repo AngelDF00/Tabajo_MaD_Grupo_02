@@ -130,7 +130,17 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
         public void CambiarContrasena(
             long usuarioId, string contrasenaActual, string contrasenaNueva)
         {
-            throw new NotImplementedException();
+            ValidarRequerido(
+                contrasenaNueva, 30, nameof(contrasenaNueva));
+
+            Usuario usuario = usuarioDao.Find(usuarioId);
+
+            if (!ContrasenaHash.Verificar(
+                contrasenaActual, usuario.HashContrasena))
+                throw new ContrasenaActualIncorrectaException();
+
+            usuario.HashContrasena = ContrasenaHash.Crear(contrasenaNueva);
+            contexto.SaveChanges();
         }
     }
 }
