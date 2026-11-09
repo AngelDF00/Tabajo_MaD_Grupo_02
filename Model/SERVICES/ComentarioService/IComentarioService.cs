@@ -1,5 +1,4 @@
 ﻿using Es.Udc.DotNet.PracticaMAD.Model.Entities;
-using System.Collections.Generic;
 
 namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
 {
@@ -11,6 +10,6 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
 
         void UpdateComentario(long userId, string nuevoTexto, long comentarioId);
 
-        List<Comentario> FindComentariosByProducto(long productoId, int page, int count);
+        Block<Comentario> FindComentariosByProducto(long productoId, int page, int count);
     }
 }

@@ -52,10 +52,18 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
             comentarioDao.Update(comentario);
         }
 
-        public List<Comentario> FindComentariosByProducto (long productoId, int page, int count)
+        public Block<Comentario> FindComentariosByProducto (long productoId, int page, int count)
         {
             int startIndex = (page - 1) * count;
-            return comentarioDao.FindByProductoIdOrderByFechaCreacionDesc(productoId, startIndex, count);
+            List<Comentario> items = comentarioDao.FindByProductoIdOrderByFechaCreacionDesc(productoId, startIndex, count + 1);
+            Boolean existMoreItems;
+            if (existMoreItems = (items.Count > count))
+            {
+                items.RemoveAt(count);
+            }
+
+            return new Block<Comentario>(existMoreItems, items);
+
         }
 
     }

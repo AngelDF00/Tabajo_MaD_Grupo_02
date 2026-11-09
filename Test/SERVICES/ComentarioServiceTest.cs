@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using Castle.Core.Internal;
 using Es.Udc.DotNet.PracticaMAD.Model.Entities;
 using Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService;
 using Es.Udc.DotNet.PracticaMAD.Model.UsuarioService;
@@ -273,16 +274,26 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                             2,
                             1);
 
-                    Assert.AreEqual(1, primeraPagina.Count);
-                    Assert.AreEqual(1, segundaPagina.Count);
+                    var terceraPagina =
+                        comentarioService.FindComentariosByProducto(
+                            producto.ProductoId,
+                            3,
+                            1);
+
+                    Assert.AreEqual(1, primeraPagina.items.Count);
+                    Assert.AreEqual(1, segundaPagina.items.Count);
 
                     Assert.AreEqual(
                         comentarioReciente.ComentarioId,
-                        primeraPagina[0].ComentarioId);
+                        primeraPagina.items[0].ComentarioId);
 
                     Assert.AreEqual(
                         comentarioAntiguo.ComentarioId,
-                        segundaPagina[0].ComentarioId);
+                        segundaPagina.items[0].ComentarioId);
+
+                    Assert.IsFalse(segundaPagina.existMoreItems);
+
+                    Assert.IsTrue(terceraPagina.items.IsNullOrEmpty());
 
                     transaccion.Rollback();
                 }

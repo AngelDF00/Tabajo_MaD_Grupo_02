@@ -69,13 +69,15 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                             10);
 
                     Assert.IsNotNull(productosEncontrados);
-                    Assert.AreEqual(1, productosEncontrados.Count);
+                    Assert.AreEqual(1, productosEncontrados.items.Count);
                     Assert.AreEqual(
                         producto.ProductoId,
-                        productosEncontrados[0].ProductoId);
+                        productosEncontrados.items[0].ProductoId);
                     Assert.AreEqual(
                         producto.Nombre,
-                        productosEncontrados[0].Nombre);
+                        productosEncontrados.items[0].Nombre);
+
+                    Assert.IsFalse(productosEncontrados.existMoreItems);
 
                     transaccion.Rollback();
                 }

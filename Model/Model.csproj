@@ -140,6 +140,7 @@
     </Compile>
     <Compile Include="DAO\UsuarioDao\IUsuarioDao.cs" />
     <Compile Include="DAO\UsuarioDao\UsuarioDaoEntityFramework.cs" />
+    <Compile Include="SERVICES\Block.cs" />
     <Compile Include="SERVICES\ComentarioService\ComentarioService.cs" />
     <Compile Include="SERVICES\ComentarioService\IComentarioService.cs" />
     <Compile Include="SERVICES\ProductoService\IProductoService.cs" />

@@ -21,10 +21,18 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ProductoService
             return productoDao.Find(productoId);
         }
 
-        public List<Producto> FindProductosByKeyword (String keyword, int page, int count)
+        public Block<Producto> FindProductosByKeyword (String keyword, int page, int count)
         {
             int startIndex = (page - 1) * count;
-            return productoDao.FindByKeyword(keyword, startIndex, count);
+            IList<Producto> items = productoDao.FindByKeyword(keyword, startIndex, count + 1);
+
+            Boolean existMoreItems;
+            if (existMoreItems = (items.Count > count))
+            {
+                items.RemoveAt(count);
+            }
+
+            return new Block<Producto>(existMoreItems, items);
         }
 
     }
