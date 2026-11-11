@@ -41,7 +41,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ReporteService
             int totalReportes = reporteDao.CountByComentarioId(comentarioId);
             if (totalReportes >= umbralRevision)
             {
-                var comentario = comentarioDao.Find(comentarioId);
+                Comentario comentario = comentarioDao.Find(comentarioId);
                 if (comentario != null && !comentario.EnRevision)
                 {
                     comentario.EnRevision = true;

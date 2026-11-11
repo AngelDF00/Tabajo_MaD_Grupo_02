@@ -14,7 +14,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.DAO
         {
             DbSet<Producto> productos = Context.Set<Producto>();
 
-            var result =
+            List<Producto> result =
                     (from p in productos
                      where p.Nombre.Contains(keyword)
                      orderby p.FechaAlta descending

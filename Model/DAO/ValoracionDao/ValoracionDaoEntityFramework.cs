@@ -31,7 +31,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.DAO
 
         public double? GetAverageByVendedorId(long vendedorId)
         {
-            var valoraciones = Context.Set<Valoracion>()
+            IQueryable<Valoracion> valoraciones = Context.Set<Valoracion>()
                 .Where(v => v.Producto.VendedorId == vendedorId);
 
             if (!valoraciones.Any())

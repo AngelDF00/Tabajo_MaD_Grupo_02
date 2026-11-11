@@ -40,7 +40,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
             if (usuarioDao.FindByLogin(loginNormalizado) != null)
                 throw new DuplicateInstanceException(loginNormalizado, "Usuario");
 
-            var usuario = new Usuario
+            Usuario usuario = new Usuario
             {
                 Login = loginNormalizado,
                 HashContrasena = ContrasenaHash.Crear(contrasena),

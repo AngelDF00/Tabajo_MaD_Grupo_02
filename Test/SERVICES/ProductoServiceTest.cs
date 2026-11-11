@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using Es.Udc.DotNet.PracticaMAD.Model.Entities;
+using Es.Udc.DotNet.PracticaMAD.Model.SERVICES;
 using Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ProductoService;
 using Es.Udc.DotNet.PracticaMAD.Model.UsuarioService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,17 +15,17 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
         [TestMethod]
         public void FindProductosByKeywordTest()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var productoService = kernel.Get<IProductoService>();
-                var usuarioService = kernel.Get<IUsuarioService>();
+                DbContext contexto = kernel.Get<DbContext>();
+                IProductoService productoService = kernel.Get<IProductoService>();
+                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
-                    var datosUsuario = new DatosPerfilUsuario
+                    DatosPerfilUsuario datosUsuario = new DatosPerfilUsuario
                     {
                         Nombre = "Vendedor",
                         Apellidos = "Producto",
@@ -39,7 +40,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                         "Clave123!",
                         datosUsuario);
 
-                    var categoria = new Categoria
+                    Categoria categoria = new Categoria
                     {
                         Nombre = "Categoría_" +
                             Guid.NewGuid().ToString("N").Substring(0, 8)
@@ -51,7 +52,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                     string palabraClave = "Producto_" +
                         Guid.NewGuid().ToString("N").Substring(0, 8);
 
-                    var producto = new Producto
+                    Producto producto = new Producto
                     {
                         Nombre = palabraClave + "_Prueba",
                         FechaAlta = DateTime.UtcNow,
@@ -62,7 +63,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                     contexto.Set<Producto>().Add(producto);
                     contexto.SaveChanges();
 
-                    var productosEncontrados =
+                    Block<Producto> productosEncontrados =
                         productoService.FindProductosByKeyword(
                             palabraClave,
                             1,
@@ -91,17 +92,17 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
         [TestMethod]
         public void FindByIdTest()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var productoService = kernel.Get<IProductoService>();
-                var usuarioService = kernel.Get<IUsuarioService>();
+                DbContext contexto = kernel.Get<DbContext>();
+                IProductoService productoService = kernel.Get<IProductoService>();
+                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
-                    var datosUsuario = new DatosPerfilUsuario
+                    DatosPerfilUsuario datosUsuario = new DatosPerfilUsuario
                     {
                         Nombre = "Vendedor",
                         Apellidos = "Búsqueda",
@@ -116,7 +117,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                         "Clave123!",
                         datosUsuario);
 
-                    var categoria = new Categoria
+                    Categoria categoria = new Categoria
                     {
                         Nombre = "CategoríaBúsqueda_" +
                             Guid.NewGuid().ToString("N").Substring(0, 8)
@@ -125,7 +126,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                     contexto.Set<Categoria>().Add(categoria);
                     contexto.SaveChanges();
 
-                    var producto = new Producto
+                    Producto producto = new Producto
                     {
                         Nombre = "Producto de prueba",
                         FechaAlta = DateTime.UtcNow,
@@ -136,7 +137,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                     contexto.Set<Producto>().Add(producto);
                     contexto.SaveChanges();
 
-                    var productoEncontrado =
+                    Producto productoEncontrado =
                         productoService.FindById(producto.ProductoId);
 
                     Assert.IsNotNull(productoEncontrado);

@@ -16,34 +16,34 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
         [TestMethod]
         public void ValorarVendedorYObtenerEstadisticas()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var valoracionService = kernel.Get<IValoracionService>();
-                var usuarioService = kernel.Get<IUsuarioService>();
+                DbContext contexto = kernel.Get<DbContext>();
+                IValoracionService valoracionService = kernel.Get<IValoracionService>();
+                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
 
-                var loginVendedor = "vendedor_" + Guid.NewGuid().ToString("N").Substring(0, 8);
-                var loginComprador = "comprador_" + Guid.NewGuid().ToString("N").Substring(0, 8);
+                string loginVendedor = "vendedor_" + Guid.NewGuid().ToString("N").Substring(0, 8);
+                string loginComprador = "comprador_" + Guid.NewGuid().ToString("N").Substring(0, 8);
 
-                var datosUsuario = new DatosPerfilUsuario
+                DatosPerfilUsuario datosUsuario = new DatosPerfilUsuario
                 {
                     Nombre = "Test",
                     Apellidos = "User",
                     Correo = "test@example.invalid"
                 };
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     long vendedorId = usuarioService.RegistrarUsuario(loginVendedor, "Clave123!", datosUsuario);
                     long compradorId = usuarioService.RegistrarUsuario(loginComprador, "Clave123!", datosUsuario);
 
-                    var categoria = new Categoria { Nombre = "CategoriaTest_" + Guid.NewGuid().ToString("N").Substring(0, 4) };
+                    Categoria categoria = new Categoria { Nombre = "CategoriaTest_" + Guid.NewGuid().ToString("N").Substring(0, 4) };
                     contexto.Set<Categoria>().Add(categoria);
                     contexto.SaveChanges();
 
-                    var producto = new Producto
+                    Producto producto = new Producto
                     {
                         Nombre = "Producto Test",
                         VendedorId = vendedorId,
@@ -75,7 +75,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
 
                     double? media = valoracionService.ObtenerMediaValoracionesVendedor(vendedorId);
                     int total = valoracionService.ObtenerTotalValoracionesVendedor(vendedorId);
-                    var resultadoPaginado = valoracionService.ObtenerValoracionesVendedor(vendedorId, 0, 10);
+                    ResultadoValoraciones resultadoPaginado = valoracionService.ObtenerValoracionesVendedor(vendedorId, 0, 10);
 
                     Assert.IsNotNull(media);
                     Assert.AreEqual(5.0, media.Value);
@@ -95,14 +95,14 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
         [TestMethod]
         public void ValorarVotoFueraDeRangoLanzaExcepcion()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var valoracionService = kernel.Get<IValoracionService>();
+                DbContext contexto = kernel.Get<DbContext>();
+                IValoracionService valoracionService = kernel.Get<IValoracionService>();
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     bool argumentoInvalidoDetectado = false;
 

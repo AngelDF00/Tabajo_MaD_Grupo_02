@@ -27,13 +27,13 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
                 throw new ArgumentException("El voto debe estar comprendido entre 1 y 5.");
             }
 
-            var producto = productoDao.Find(productoId);
+            Producto producto = productoDao.Find(productoId);
             if (producto == null)
             {
                 throw new Exception("El producto especificado no existe.");
             }
 
-            var autor = usuarioDao.Find(autorId);
+            Usuario autor = usuarioDao.Find(autorId);
             if (autor == null)
             {
                 throw new Exception("El usuario autor no existe.");
@@ -60,7 +60,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
 
         public ResultadoValoraciones ObtenerValoracionesVendedor(long vendedorId, int startIndex, int count)
         {
-            var valoraciones = valoracionDao.FindByVendedorId(vendedorId, startIndex, count);
+            List<Valoracion> valoraciones = valoracionDao.FindByVendedorId(vendedorId, startIndex, count);
             int total = valoracionDao.GetTotalCountByVendedorId(vendedorId);
 
             return new ResultadoValoraciones(valoraciones, total);

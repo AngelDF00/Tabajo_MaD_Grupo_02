@@ -15,7 +15,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.DAO
         {
             DbSet<Comentario> comentarios = Context.Set<Comentario>();
 
-            var result = (from c in comentarios
+            List<Comentario> result = (from c in comentarios
                           where c.ProductoId == productoId
                           orderby c.FechaCreacion descending
                           select c).Skip(startIndex).Take(count).ToList();

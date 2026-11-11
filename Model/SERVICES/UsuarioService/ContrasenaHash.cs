@@ -9,12 +9,12 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
         {
             byte[] sal = new byte[16];
 
-            using (var generador = RandomNumberGenerator.Create())
+            using (RandomNumberGenerator generador = RandomNumberGenerator.Create())
             {
                 generador.GetBytes(sal);
             }
 
-            using (var derivador = new Rfc2898DeriveBytes(
+            using (Rfc2898DeriveBytes derivador = new Rfc2898DeriveBytes(
                 contrasena, sal, 100000, HashAlgorithmName.SHA256))
             {
                 byte[] hash = derivador.GetBytes(32);
@@ -53,7 +53,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.UsuarioService
             if (sal.Length != 16 || hashGuardado.Length != 32)
                 return false;
 
-            using (var derivador = new Rfc2898DeriveBytes(
+            using (Rfc2898DeriveBytes derivador = new Rfc2898DeriveBytes(
                 contrasena, sal, 100000, HashAlgorithmName.SHA256))
             {
                 byte[] hashCalculado = derivador.GetBytes(32);

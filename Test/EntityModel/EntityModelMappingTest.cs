@@ -10,7 +10,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
         [TestMethod]
         public void GeneratedModelReadsTestDatabase()
         {
-            using (var context = new MarketplaceEntities())
+            using (MarketplaceEntities context = new MarketplaceEntities())
             {
                 Assert.IsTrue(context.Database.Exists());
 

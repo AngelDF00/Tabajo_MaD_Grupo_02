@@ -15,17 +15,17 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
         [TestMethod]
         public void RegistrarUsuarioGuardaHashYRechazaDuplicado()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var servicio = kernel.Get<IUsuarioService>();
-                var login = "registro_" +
+                DbContext contexto = kernel.Get<DbContext>();
+                IUsuarioService servicio = kernel.Get<IUsuarioService>();
+                string login = "registro_" +
                     Guid.NewGuid().ToString("N").Substring(0, 12);
                 const string contrasena = "Clave123!";
 
-                var datos = new DatosPerfilUsuario
+                DatosPerfilUsuario datos = new DatosPerfilUsuario
                 {
                     Nombre = "Prueba",
                     Apellidos = "Registro",
@@ -34,12 +34,12 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
                     Pais = "España"
                 };
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     long usuarioId = servicio.RegistrarUsuario(
                         login, contrasena, datos);
 
-                    var guardado = contexto.Set<Usuario>()
+                    Usuario guardado = contexto.Set<Usuario>()
                         .AsNoTracking()
                         .SingleOrDefault(u => u.UsuarioId == usuarioId);
 
@@ -77,24 +77,24 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
         [TestMethod]
         public void AutenticarDevuelveIdSoloConCredencialesCorrectas()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var servicio = kernel.Get<IUsuarioService>();
-                var login = "auth_" +
+                DbContext contexto = kernel.Get<DbContext>();
+                IUsuarioService servicio = kernel.Get<IUsuarioService>();
+                string login = "auth_" +
                     Guid.NewGuid().ToString("N").Substring(0, 12);
                 const string contrasena = "Clave123!";
 
-                var datos = new DatosPerfilUsuario
+                DatosPerfilUsuario datos = new DatosPerfilUsuario
                 {
                     Nombre = "Prueba",
                     Apellidos = "Autenticación",
                     Correo = "auth@example.invalid"
                 };
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     long usuarioId = servicio.RegistrarUsuario(
                         login, contrasena, datos);
@@ -121,16 +121,16 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
         [TestMethod]
         public void ObtenerPerfilDevuelveDatosYRechazaIdInexistente()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var servicio = kernel.Get<IUsuarioService>();
-                var login = "perfil_" +
+                DbContext contexto = kernel.Get<DbContext>();
+                IUsuarioService servicio = kernel.Get<IUsuarioService>();
+                string login = "perfil_" +
                     Guid.NewGuid().ToString("N").Substring(0, 12);
 
-                var datos = new DatosPerfilUsuario
+                DatosPerfilUsuario datos = new DatosPerfilUsuario
                 {
                     Nombre = "Prueba",
                     Apellidos = "Perfil",
@@ -139,7 +139,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
                     Pais = "España"
                 };
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     long usuarioId = servicio.RegistrarUsuario(
                         login, "Clave123!", datos);
@@ -178,33 +178,33 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
         [TestMethod]
         public void ActualizarPerfilGuardaCambiosSinModificarLoginNiContrasena()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var servicio = kernel.Get<IUsuarioService>();
-                var login = "editar_" + Guid.NewGuid().ToString("N").Substring(0, 12);
+                DbContext contexto = kernel.Get<DbContext>();
+                IUsuarioService servicio = kernel.Get<IUsuarioService>();
+                string login = "editar_" + Guid.NewGuid().ToString("N").Substring(0, 12);
                 const string contrasena = "Clave123!";
 
-                var datosIniciales = new DatosPerfilUsuario
+                DatosPerfilUsuario datosIniciales = new DatosPerfilUsuario
                 {
                     Nombre = "Nombre inicial",
                     Apellidos = "Apellidos iniciales",
                     Correo = "inicial@example.invalid"
                 };
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     long usuarioId = servicio.RegistrarUsuario(
                         login, contrasena, datosIniciales);
 
-                    var antes = contexto.Set<Usuario>()
+                    Usuario antes = contexto.Set<Usuario>()
                         .AsNoTracking()
                         .Single(u => u.UsuarioId == usuarioId);
                     string hashAnterior = antes.HashContrasena;
 
-                    var datosNuevos = new DatosPerfilUsuario
+                    DatosPerfilUsuario datosNuevos = new DatosPerfilUsuario
                     {
                         Nombre = "Nombre nuevo",
                         Apellidos = "Apellidos nuevos",
@@ -215,7 +215,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
 
                     servicio.ActualizarPerfil(usuarioId, datosNuevos);
 
-                    var despues = contexto.Set<Usuario>()
+                    Usuario despues = contexto.Set<Usuario>()
                         .AsNoTracking()
                         .Single(u => u.UsuarioId == usuarioId);
 
@@ -239,24 +239,24 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
         [TestMethod]
         public void CambiarContrasenaCompruebaActualYGuardaNuevoHash()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var servicio = kernel.Get<IUsuarioService>();
-                var login = "clave_" + Guid.NewGuid().ToString("N").Substring(0, 12);
+                DbContext contexto = kernel.Get<DbContext>();
+                IUsuarioService servicio = kernel.Get<IUsuarioService>();
+                string login = "clave_" + Guid.NewGuid().ToString("N").Substring(0, 12);
                 const string contrasenaActual = "Clave123!";
                 const string contrasenaNueva = "NuevaClave456!";
 
-                var datos = new DatosPerfilUsuario
+                DatosPerfilUsuario datos = new DatosPerfilUsuario
                 {
                     Nombre = "Prueba",
                     Apellidos = "Contraseña",
                     Correo = "clave@example.invalid"
                 };
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     long usuarioId = servicio.RegistrarUsuario(
                         login, contrasenaActual, datos);
@@ -283,7 +283,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
                     servicio.CambiarContrasena(
                         usuarioId, contrasenaActual, contrasenaNueva);
 
-                    var guardado = contexto.Set<Usuario>()
+                    Usuario guardado = contexto.Set<Usuario>()
                         .AsNoTracking()
                         .Single(u => u.UsuarioId == usuarioId);
 

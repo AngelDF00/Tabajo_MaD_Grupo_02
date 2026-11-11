@@ -13,17 +13,17 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
         [TestMethod]
         public void FindByLoginEncuentraUsuarioYDevuelveNullSiNoExiste()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var context = kernel.Get<DbContext>();
-                var dao = kernel.Get<IUsuarioDao>();
-                var login = "test_" + Guid.NewGuid().ToString("N").Substring(0, 20);
+                DbContext context = kernel.Get<DbContext>();
+                IUsuarioDao dao = kernel.Get<IUsuarioDao>();
+                string login = "test_" + Guid.NewGuid().ToString("N").Substring(0, 20);
 
-                using (var transaction = context.Database.BeginTransaction())
+                using (DbContextTransaction transaction = context.Database.BeginTransaction())
                 {
-                    var usuario = new Usuario
+                    Usuario usuario = new Usuario
                     {
                         Login = login,
                         HashContrasena = "hash-de-prueba",
@@ -37,7 +37,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
 
                     context.Entry(usuario).State = EntityState.Detached;
 
-                    var encontrado = dao.FindByLogin(login);
+                    Usuario encontrado = dao.FindByLogin(login);
                     Assert.IsNotNull(encontrado);
                     Assert.AreEqual(login, encontrado.Login);
 

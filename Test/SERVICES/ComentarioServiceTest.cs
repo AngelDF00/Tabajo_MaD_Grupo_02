@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using Castle.Core.Internal;
 using Es.Udc.DotNet.PracticaMAD.Model.Entities;
+using Es.Udc.DotNet.PracticaMAD.Model.SERVICES;
 using Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService;
 using Es.Udc.DotNet.PracticaMAD.Model.UsuarioService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,21 +17,21 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
         [TestMethod]
         public void CreateComentarioGuardaElComentario()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var comentarioService = kernel.Get<IComentarioService>();
-                var usuarioService = kernel.Get<IUsuarioService>();
+                DbContext contexto = kernel.Get<DbContext>();
+                IComentarioService comentarioService = kernel.Get<IComentarioService>();
+                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     Producto producto = CrearProducto(
                         contexto,
                         usuarioService);
 
-                    var comentario = new Comentario
+                    Comentario comentario = new Comentario
                     {
                         ProductoId = producto.ProductoId,
                         AutorId = producto.VendedorId,
@@ -41,7 +42,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
 
                     comentarioService.CreateComentario(comentario);
 
-                    var comentarioGuardado = contexto.Set<Comentario>()
+                    Comentario comentarioGuardado = contexto.Set<Comentario>()
                         .SingleOrDefault(c =>
                             c.ComentarioId == comentario.ComentarioId);
 
@@ -68,21 +69,21 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
         [TestMethod]
         public void DeleteComentarioEliminaElComentarioDelAutor()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var comentarioService = kernel.Get<IComentarioService>();
-                var usuarioService = kernel.Get<IUsuarioService>();
+                DbContext contexto = kernel.Get<DbContext>();
+                IComentarioService comentarioService = kernel.Get<IComentarioService>();
+                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     Producto producto = CrearProducto(
                         contexto,
                         usuarioService);
 
-                    var comentario = new Comentario
+                    Comentario comentario = new Comentario
                     {
                         ProductoId = producto.ProductoId,
                         AutorId = producto.VendedorId,
@@ -98,7 +99,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                         producto.VendedorId,
                         comentario.ComentarioId);
 
-                    var comentarioEliminado = contexto.Set<Comentario>()
+                    Comentario comentarioEliminado = contexto.Set<Comentario>()
                         .SingleOrDefault(c =>
                             c.ComentarioId == comentario.ComentarioId);
 
@@ -117,15 +118,15 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
         [ExpectedException(typeof(UnauthorizedAccessException))]
         public void DeleteComentarioRechazaUnUsuarioQueNoEsElAutor()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var comentarioService = kernel.Get<IComentarioService>();
-                var usuarioService = kernel.Get<IUsuarioService>();
+                DbContext contexto = kernel.Get<DbContext>();
+                IComentarioService comentarioService = kernel.Get<IComentarioService>();
+                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     Producto producto = CrearProducto(
                         contexto,
@@ -135,7 +136,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                         usuarioService,
                         "otro");
 
-                    var comentario = new Comentario
+                    Comentario comentario = new Comentario
                     {
                         ProductoId = producto.ProductoId,
                         AutorId = producto.VendedorId,
@@ -168,21 +169,21 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
         [TestMethod]
         public void UpdateComentarioActualizaElTextoYConservaElAutor()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var comentarioService = kernel.Get<IComentarioService>();
-                var usuarioService = kernel.Get<IUsuarioService>();
+                DbContext contexto = kernel.Get<DbContext>();
+                IComentarioService comentarioService = kernel.Get<IComentarioService>();
+                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     Producto producto = CrearProducto(
                         contexto,
                         usuarioService);
 
-                    var comentario = new Comentario
+                    Comentario comentario = new Comentario
                     {
                         ProductoId = producto.ProductoId,
                         AutorId = producto.VendedorId,
@@ -199,7 +200,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                         "Texto actualizado",
                         comentario.ComentarioId);
 
-                    var comentarioActualizado = contexto.Set<Comentario>()
+                    Comentario comentarioActualizado = contexto.Set<Comentario>()
                         .Single(c =>
                             c.ComentarioId == comentario.ComentarioId);
 
@@ -223,15 +224,15 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
         [TestMethod]
         public void FindComentariosByProductoDevuelveComentariosPaginados()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var comentarioService = kernel.Get<IComentarioService>();
-                var usuarioService = kernel.Get<IUsuarioService>();
+                DbContext contexto = kernel.Get<DbContext>();
+                IComentarioService comentarioService = kernel.Get<IComentarioService>();
+                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     Producto producto = CrearProducto(
                         contexto,
@@ -240,7 +241,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                     DateTime fechaAntigua = DateTime.UtcNow.AddMinutes(-2);
                     DateTime fechaReciente = DateTime.UtcNow;
 
-                    var comentarioAntiguo = new Comentario
+                    Comentario comentarioAntiguo = new Comentario
                     {
                         ProductoId = producto.ProductoId,
                         AutorId = producto.VendedorId,
@@ -249,7 +250,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                         EnRevision = false
                     };
 
-                    var comentarioReciente = new Comentario
+                    Comentario comentarioReciente = new Comentario
                     {
                         ProductoId = producto.ProductoId,
                         AutorId = producto.VendedorId,
@@ -262,19 +263,19 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                     contexto.Set<Comentario>().Add(comentarioReciente);
                     contexto.SaveChanges();
 
-                    var primeraPagina =
+                    Block<Comentario> primeraPagina =
                         comentarioService.FindComentariosByProducto(
                             producto.ProductoId,
                             1,
                             1);
 
-                    var segundaPagina =
+                    Block<Comentario> segundaPagina =
                         comentarioService.FindComentariosByProducto(
                             producto.ProductoId,
                             2,
                             1);
 
-                    var terceraPagina =
+                    Block<Comentario> terceraPagina =
                         comentarioService.FindComentariosByProducto(
                             producto.ProductoId,
                             3,
@@ -308,15 +309,15 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
         [ExpectedException(typeof(UnauthorizedAccessException))]
         public void UpdateComentarioRechazaUnUsuarioQueNoEsElAutor()
         {
-            var kernel = TestManager.ConfigureNInjectKernel();
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
 
             try
             {
-                var contexto = kernel.Get<DbContext>();
-                var comentarioService = kernel.Get<IComentarioService>();
-                var usuarioService = kernel.Get<IUsuarioService>();
+                DbContext contexto = kernel.Get<DbContext>();
+                IComentarioService comentarioService = kernel.Get<IComentarioService>();
+                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
 
-                using (var transaccion = contexto.Database.BeginTransaction())
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
                 {
                     Producto producto = CrearProducto(
                         contexto,
@@ -326,7 +327,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                         usuarioService,
                         "otro_usuario");
 
-                    var comentario = new Comentario
+                    Comentario comentario = new Comentario
                     {
                         ProductoId = producto.ProductoId,
                         AutorId = producto.VendedorId,
@@ -361,7 +362,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                 usuarioService,
                 "producto");
 
-            var categoria = new Categoria
+            Categoria categoria = new Categoria
             {
                 Nombre = "Categoría_" +
                     Guid.NewGuid().ToString("N").Substring(0, 8)
@@ -370,7 +371,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
             contexto.Set<Categoria>().Add(categoria);
             contexto.SaveChanges();
 
-            var producto = new Producto
+            Producto producto = new Producto
             {
                 Nombre = "Producto_" +
                     Guid.NewGuid().ToString("N").Substring(0, 8),
@@ -389,7 +390,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
             IUsuarioService usuarioService,
             string prefijo)
         {
-            var datosUsuario = new DatosPerfilUsuario
+            DatosPerfilUsuario datosUsuario = new DatosPerfilUsuario
             {
                 Nombre = "Usuario",
                 Apellidos = "Prueba",
