@@ -39,14 +39,14 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
             //Accedemos a base de datos para saber el autorId del comentario en BD es el del usuario  por seguridad y demas operaciones
             Comentario comentario = comentarioDao.Find(comentarioId);
 
-            if (comentario.EnRevision)
-            {
-                throw new ComentarioEnRevisionException(comentario.ComentarioId, "ComentarioService.UpdateComentario.ComentarioEnRevisionException");
-            }
-
             if (comentario == null) //verificar si existe
             {
                 throw new KeyNotFoundException("ComentarioService.UpdateComentario.KeyNotFoundException");
+            }
+
+            if (comentario.EnRevision)
+            {
+                throw new ComentarioEnRevisionException(comentario.ComentarioId);
             }
 
             if (comentario.AutorId != userId)

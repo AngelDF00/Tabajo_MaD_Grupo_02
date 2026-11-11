@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.Exceptions
 {
-    internal class ComentarioEnRevisionException
+    public class ComentarioEnRevisionException : Exception
     {
+        public long ComentarioId { get; private set; }
+
+        public ComentarioEnRevisionException(long comentarioId)
+            : base($"El comentario con ID {comentarioId} está en revisión y no se puede modificar.")
+        {
+            ComentarioId = comentarioId;
+        }
     }
 }

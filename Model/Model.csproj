@@ -153,6 +153,7 @@
     <Compile Include="SERVICES\UsuarioService\IUsuarioService.cs" />
     <Compile Include="SERVICES\UsuarioService\PerfilUsuario.cs" />
     <Compile Include="SERVICES\Exceptions\ComentarioYaReportadoException.cs" />
+    <Compile Include="SERVICES\Exceptions\ComentarioEnRevisionException.cs" />
     <Compile Include="SERVICES\UsuarioService\UsuarioService.cs" />
     <Compile Include="SERVICES\ValoracionService\IValoracionService.cs" />
     <Compile Include="SERVICES\ValoracionService\ResultadoValoraciones.cs" />
