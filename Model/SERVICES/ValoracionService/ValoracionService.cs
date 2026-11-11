@@ -39,6 +39,12 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
                 throw new Exception("El usuario autor no existe.");
             }
 
+            if (valoracionDao.ExistsByProductoAndAutor(productoId, autorId))
+            {
+                throw new InvalidOperationException(
+                    "Este usuario ya ha valorado este producto.");
+            }
+
             Valoracion valoracion = new Valoracion()
             {
                 ProductoId = productoId,

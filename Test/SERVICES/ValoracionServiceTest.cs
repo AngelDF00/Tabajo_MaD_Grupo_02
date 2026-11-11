@@ -55,6 +55,22 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
 
                     long valoracionId = valoracionService.ValorarVendedor(compradorId, producto.ProductoId, 5, "Excelente vendedor");
 
+                    bool duplicadoRechazado = false;
+
+                    try
+                    {
+                        valoracionService.ValorarVendedor(
+                            compradorId, producto.ProductoId, 4, "Segundo intento");
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        duplicadoRechazado = true;
+                    }
+
+                    Assert.IsTrue(duplicadoRechazado);
+                    Assert.AreEqual(
+                        1, valoracionService.ObtenerTotalValoracionesVendedor(vendedorId));
+
                     Assert.IsTrue(valoracionId > 0);
 
                     double? media = valoracionService.ObtenerMediaValoracionesVendedor(vendedorId);

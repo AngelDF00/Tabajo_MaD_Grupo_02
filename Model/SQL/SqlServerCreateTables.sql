@@ -101,7 +101,16 @@ BEGIN
     );
 END;
 GO
-
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.key_constraints
+    WHERE parent_object_id = OBJECT_ID(N'dbo.Valoracion')
+      AND name = N'UQ_Valoracion_ProductoAutor'
+)
+    ALTER TABLE dbo.Valoracion
+    ADD CONSTRAINT UQ_Valoracion_ProductoAutor
+        UNIQUE (ProductoId, AutorId);
+GO
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'dbo.Producto') AND name = N'IX_Producto_Vendedor')
     CREATE INDEX IX_Producto_Vendedor ON dbo.Producto(VendedorId);
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'dbo.Producto') AND name = N'IX_Producto_Categoria')

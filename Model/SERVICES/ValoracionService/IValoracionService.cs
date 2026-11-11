@@ -10,6 +10,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
 {
     public interface IValoracionService
     {
+        /// <exception cref="InvalidOperationException">El usuario ya ha valorado el producto.</exception>
         long ValorarVendedor(long autorId, long productoId, int voto, string comentario);
 
         ResultadoValoraciones ObtenerValoracionesVendedor(long vendedorId, int startIndex, int count);

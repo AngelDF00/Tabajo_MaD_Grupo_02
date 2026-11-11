@@ -41,5 +41,11 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.DAO
 
             return valoraciones.Average(v => v.Voto);
         }
+
+        public bool ExistsByProductoAndAutor(long productoId, long autorId)
+        {
+            return Context.Set<Valoracion>()
+                .Any(v => v.ProductoId == productoId && v.AutorId == autorId);
+        }
     }
 }

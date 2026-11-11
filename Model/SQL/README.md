@@ -28,7 +28,7 @@ Si la instancia `MSSQLLocalDB` ya existe, se omite `sqllocaldb create`. Los scri
 | `Reporte` | `ReporteId` PK; FK a comentario y autor; motivo, fecha; único `(ComentarioId, AutorId)` | Diego y Marcos |
 | `Valoracion` | `ValoracionId` PK; FK a producto y autor; voto 1–5, comentario opcional y fecha | Marcos |
 
-Todos los identificadores son `BIGINT IDENTITY`. Las fechas se guardan en UTC con `DATETIME2(3)`. Las claves externas no tienen borrado en cascada. El vendedor valorado se obtiene de `Valoracion.ProductoId -> Producto.VendedorId`: no hay un segundo `VendedorId` en `Valoracion`. La media y el total de votos se calculan al consultar; tampoco hay una restricción de un solo voto por usuario.
+Todos los identificadores son `BIGINT IDENTITY`. Las fechas se guardan en UTC con `DATETIME2(3)`. Las claves externas no tienen borrado en cascada. El vendedor valorado se obtiene de `Valoracion.ProductoId -> Producto.VendedorId`: no hay un segundo `VendedorId` en `Valoracion`. La media y el total de votos se calculan al consultar. La restricción `UNIQUE (ProductoId, AutorId)` permite una sola valoración de cada usuario por producto.
 
 ## Detalles de implementación por concretar
 

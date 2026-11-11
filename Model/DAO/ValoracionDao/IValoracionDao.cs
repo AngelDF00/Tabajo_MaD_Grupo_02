@@ -14,5 +14,6 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.DAO
         List<Valoracion> FindByVendedorId(long vendedorId, int startIndex, int count);
         int GetTotalCountByVendedorId(long vendedorId);
         double? GetAverageByVendedorId(long vendedorId);
+        bool ExistsByProductoAndAutor(long productoId, long autorId);
     }
 }
