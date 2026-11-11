@@ -12,11 +12,13 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
     {
         public List<Valoracion> Valoraciones { get; private set; }
         public int TotalValoraciones { get; private set; }
+        public double? MediaValoraciones { get; private set; }
 
-        public ResultadoValoraciones(List<Valoracion> valoraciones, int totalValoraciones)
+        public ResultadoValoraciones(List<Valoracion> valoraciones, int totalValoraciones, double? mediaValoraciones)
         {
             Valoraciones = valoraciones;
             TotalValoraciones = totalValoraciones;
+            MediaValoraciones = mediaValoraciones;
         }
     }
 }

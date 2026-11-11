@@ -81,6 +81,8 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
                     Assert.AreEqual(5.0, media.Value);
                     Assert.AreEqual(1, total);
                     Assert.AreEqual(1, resultadoPaginado.TotalValoraciones);
+                    Assert.IsNotNull(resultadoPaginado.MediaValoraciones);
+                    Assert.AreEqual(5.0, resultadoPaginado.MediaValoraciones.Value);
                     Assert.AreEqual(1, resultadoPaginado.Valoraciones.Count);
 
                     transaccion.Rollback();

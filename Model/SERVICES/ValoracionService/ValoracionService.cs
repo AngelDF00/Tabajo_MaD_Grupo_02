@@ -62,8 +62,9 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
         {
             List<Valoracion> valoraciones = valoracionDao.FindByVendedorId(vendedorId, startIndex, count);
             int total = valoracionDao.GetTotalCountByVendedorId(vendedorId);
+            double? media = valoracionDao.GetAverageByVendedorId(vendedorId);
 
-            return new ResultadoValoraciones(valoraciones, total);
+            return new ResultadoValoraciones(valoraciones, total, media);
         }
 
         public int ObtenerTotalValoracionesVendedor(long vendedorId)
