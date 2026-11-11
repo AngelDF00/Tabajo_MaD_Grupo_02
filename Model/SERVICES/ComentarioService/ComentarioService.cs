@@ -1,5 +1,6 @@
 ﻿using Es.Udc.DotNet.PracticaMAD.Model.DAO;
 using Es.Udc.DotNet.PracticaMAD.Model.Entities;
+using Es.Udc.DotNet.PracticaMAD.Model.SERVICES.Exceptions;
 using System;
 using System.Collections.Generic;
 
@@ -35,12 +36,12 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
         {
 
 
-            //Accedemos a base de datos para saber el autorId del comentario en BD es el del usuario  por seguridad
+            //Accedemos a base de datos para saber el autorId del comentario en BD es el del usuario  por seguridad y demas operaciones
             Comentario comentario = comentarioDao.Find(comentarioId);
 
             if (comentario.EnRevision)
             {
-                throw new InvalidOperationException("ComentarioService.UpdateComentario.InvalidOperationException");
+                throw new ComentarioEnRevisionException(comentario.ComentarioId, "ComentarioService.UpdateComentario.ComentarioEnRevisionException");
             }
 
             if (comentario == null) //verificar si existe
