@@ -143,6 +143,7 @@
     <Compile Include="SERVICES\Block.cs" />
     <Compile Include="SERVICES\ComentarioService\ComentarioService.cs" />
     <Compile Include="SERVICES\ComentarioService\IComentarioService.cs" />
+    <Compile Include="SERVICES\Exceptions\ComentarioEnRevisionException.cs" />
     <Compile Include="SERVICES\ProductoService\IProductoService.cs" />
     <Compile Include="SERVICES\ProductoService\ProductoService.cs" />
     <Compile Include="SERVICES\ReporteService\IReporteService.cs" />

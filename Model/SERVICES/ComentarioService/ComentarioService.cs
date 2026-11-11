@@ -46,7 +46,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
 
             if (comentario.EnRevision)
             {
-                throw new ComentarioEnRevisionException(comentario.ComentarioId);
+                throw new ComentarioEnRevisionException(comentario.ComentarioId, "ComentarioService.UpdateComentario.ComentarioEnRevisionException");
             }
 
             if (comentario.AutorId != userId)
