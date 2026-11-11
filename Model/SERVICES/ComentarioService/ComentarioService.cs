@@ -33,10 +33,17 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
 
         public void UpdateComentario (long userId, string nuevoTexto, long comentarioId)
         {
+
+
             //Accedemos a base de datos para saber el autorId del comentario en BD es el del usuario  por seguridad
             Comentario comentario = comentarioDao.Find(comentarioId);
 
-            if (comentario == null) // Buena práctica: verificar si existe
+            if (comentario.EnRevision)
+            {
+                throw new InvalidOperationException("ComentarioService.UpdateComentario.InvalidOperationException");
+            }
+
+            if (comentario == null) //verificar si existe
             {
                 throw new KeyNotFoundException("ComentarioService.UpdateComentario.KeyNotFoundException");
             }

@@ -147,12 +147,12 @@
     <Compile Include="SERVICES\ProductoService\ProductoService.cs" />
     <Compile Include="SERVICES\ReporteService\IReporteService.cs" />
     <Compile Include="SERVICES\ReporteService\ReporteService.cs" />
-    <Compile Include="SERVICES\UsuarioService\ContrasenaActualIncorrectaException.cs" />
+    <Compile Include="SERVICES\Exceptions\ContrasenaActualIncorrectaException.cs" />
     <Compile Include="SERVICES\UsuarioService\ContrasenaHash.cs" />
     <Compile Include="SERVICES\UsuarioService\DatosPerfilUsuario.cs" />
     <Compile Include="SERVICES\UsuarioService\IUsuarioService.cs" />
     <Compile Include="SERVICES\UsuarioService\PerfilUsuario.cs" />
-    <Compile Include="SERVICES\ReporteService\ComentarioYaReportadoException.cs" />
+    <Compile Include="SERVICES\Exceptions\ComentarioYaReportadoException.cs" />
     <Compile Include="SERVICES\UsuarioService\UsuarioService.cs" />
     <Compile Include="SERVICES\ValoracionService\IValoracionService.cs" />
     <Compile Include="SERVICES\ValoracionService\ResultadoValoraciones.cs" />
