@@ -24,7 +24,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.DAO.EtiquetaDao
                 .Select(e => new
                 {
                     NombreEtiqueta = e.Nombre,
-                    Contador = e.Comentarios.Count()
+                    Contador = e.Comentario.Count()
                 })
                 .OrderByDescending(x => x.Contador)
                 .ToDictionary(x => x.NombreEtiqueta, x => x.Contador);
@@ -35,15 +35,15 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.DAO.EtiquetaDao
         public List<Etiqueta> FindByComentarioId(long comentarioId)
         {
             Comentario comentario = Context.Set<Comentario>()
-                .Include("Etiquetas")
+                .Include("Etiqueta")
                 .SingleOrDefault(c => c.ComentarioId == comentarioId);
 
-            if (comentario == null || comentario.Etiquetas == null)
+            if (comentario == null || comentario.Etiqueta == null)
             {
                 return new List<Etiqueta>();
             }
 
-            return comentario.Etiquetas.ToList();
+            return comentario.Etiqueta.ToList();
         }
     }
 }

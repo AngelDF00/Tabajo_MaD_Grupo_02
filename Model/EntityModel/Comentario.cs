@@ -18,6 +18,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.Entities
         public Comentario()
         {
             this.Reporte = new HashSet<Reporte>();
+            this.Etiqueta = new HashSet<Etiqueta>();
         }
     
         public long ComentarioId { get; set; }
@@ -31,5 +32,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.Entities
         public virtual Producto Producto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reporte> Reporte { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Etiqueta> Etiqueta { get; set; }
     }
 }

@@ -68,6 +68,52 @@ IF NOT EXISTS (SELECT 1 FROM sys.check_constraints WHERE parent_object_id = OBJE
     ALTER TABLE dbo.Usuario WITH CHECK ADD CONSTRAINT CK_Usuario_NombreNoVacio CHECK (LEN(LTRIM(RTRIM(Nombre))) > 0);
 IF NOT EXISTS (SELECT 1 FROM sys.check_constraints WHERE parent_object_id = OBJECT_ID(N'dbo.Usuario') AND name = N'CK_Usuario_ApellidosNoVacios')
     ALTER TABLE dbo.Usuario WITH CHECK ADD CONSTRAINT CK_Usuario_ApellidosNoVacios CHECK (LEN(LTRIM(RTRIM(Apellidos))) > 0);
+
+GO
+IF OBJECT_ID(N'dbo.Etiqueta', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.Etiqueta (
+        EtiquetaId BIGINT IDENTITY(1,1) NOT NULL
+            CONSTRAINT PK_Etiqueta PRIMARY KEY,
+        Nombre NVARCHAR(100) COLLATE Latin1_General_100_CI_AS NOT NULL,
+        CONSTRAINT UQ_Etiqueta_Nombre UNIQUE (Nombre),
+        CONSTRAINT CK_Etiqueta_NombreValido CHECK (
+            LEN(LTRIM(RTRIM(Nombre))) > 0
+            AND DATALENGTH(Nombre) = DATALENGTH(LTRIM(RTRIM(Nombre)))
+        )
+    );
+END;
+GO
+
+IF OBJECT_ID(N'dbo.ComentarioEtiqueta', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.ComentarioEtiqueta (
+        ComentarioId BIGINT NOT NULL,
+        EtiquetaId BIGINT NOT NULL,
+
+        CONSTRAINT PK_ComentarioEtiqueta
+            PRIMARY KEY (ComentarioId, EtiquetaId),
+
+        CONSTRAINT FK_ComentarioEtiqueta_Comentario
+            FOREIGN KEY (ComentarioId)
+            REFERENCES dbo.Comentario(ComentarioId)
+            ON DELETE CASCADE,
+
+        CONSTRAINT FK_ComentarioEtiqueta_Etiqueta
+            FOREIGN KEY (EtiquetaId)
+            REFERENCES dbo.Etiqueta(EtiquetaId)
+    );
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.indexes
+    WHERE object_id = OBJECT_ID(N'dbo.ComentarioEtiqueta')
+      AND name = N'IX_ComentarioEtiqueta_Etiqueta'
+)
+    CREATE INDEX IX_ComentarioEtiqueta_Etiqueta
+        ON dbo.ComentarioEtiqueta(EtiquetaId, ComentarioId);
 GO
 
 IF OBJECT_ID(N'dbo.Reporte', N'U') IS NULL

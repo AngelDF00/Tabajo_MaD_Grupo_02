@@ -31,5 +31,6 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.Entities
         public virtual DbSet<Reporte> Reporte { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Valoracion> Valoracion { get; set; }
+        public virtual DbSet<Etiqueta> Etiqueta { get; set; }
     }
 }
