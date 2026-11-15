@@ -8,6 +8,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ReporteService
 {
     public interface IReporteService
     {
+        /// <exception cref="ComentarioYaReportadoException">Se lanza si el usuario ya ha reportado este comentario previamente.</exception>
         long ReportarComentario(long autorId, long comentarioId, string motivo, int umbralRevision);
     }
 }
