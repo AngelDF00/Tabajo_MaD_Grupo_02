@@ -108,6 +108,8 @@
   <ItemGroup>
     <Compile Include="DAO\ComentarioDao\ComentarioDaoEntityFramework.cs" />
     <Compile Include="DAO\ComentarioDao\IComentarioDao.cs" />
+    <Compile Include="DAO\EtiquetaDao\EtiquetaDaoEntityFramework.cs" />
+    <Compile Include="DAO\EtiquetaDao\IEtiquetaDao.cs" />
     <Compile Include="DAO\ProductoDao\IProductoDao.cs" />
     <Compile Include="DAO\ProductoDao\ProductoDaoEntityFramework.cs" />
     <Compile Include="DAO\ReportesDao\IReporteDao.cs" />
