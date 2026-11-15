@@ -1,10 +1,13 @@
 ﻿using Es.Udc.DotNet.PracticaMAD.Model.Entities;
+using System.Collections.Generic;
 
 namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
 {
     public interface IComentarioService
     {
         void CreateComentario(Comentario comentario);
+
+        long CreateComentarioConEtiquetas(long userId, long productoId, string texto, List<string> nombresEtiquetas);
 
         void DeleteComentario(long userId, long comentarioId);
 

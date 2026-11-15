@@ -58,15 +58,23 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
             return valoracion.ValoracionId;
         }
 
-        public ResultadoValoraciones ObtenerValoracionesVendedor(long vendedorId, int startIndex, int count)
+        public ResultadoValoraciones ObtenerValoracionesVendedor(long vendedorId, int page, int count)
         {
-            List<Valoracion> valoraciones = valoracionDao.FindByVendedorId(vendedorId, startIndex, count);
-            int total = valoracionDao.GetTotalCountByVendedorId(vendedorId);
-            double? media = valoracionDao.GetAverageByVendedorId(vendedorId);
+            int totalValoraciones = valoracionDao.GetTotalCountByVendedorId(vendedorId);
+            double? mediaValoraciones = valoracionDao.GetAverageByVendedorId(vendedorId);
 
-            bool hasMoreElements = (startIndex + count) < total;
+            int startIndex = (page - 1) * count;
+            List<Valoracion> items = valoracionDao.FindByVendedorId(vendedorId, startIndex, count + 1);
 
-            return new ResultadoValoraciones(valoraciones, total, media, hasMoreElements);
+            bool existMoreItems;
+            if (existMoreItems = (items.Count > count))
+            {
+                items.RemoveAt(count);
+            }
+
+            Block<Valoracion> block = new Block<Valoracion>(existMoreItems, items);
+
+            return new ResultadoValoraciones(items, totalValoraciones, mediaValoraciones, block);
         }
 
         public int ObtenerTotalValoracionesVendedor(long vendedorId)

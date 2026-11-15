@@ -1,4 +1,5 @@
 ﻿using Es.Udc.DotNet.PracticaMAD.Model.DAO;
+using Es.Udc.DotNet.PracticaMAD.Model.DAO.EtiquetaDao;
 using Es.Udc.DotNet.PracticaMAD.Model.Entities;
 using Es.Udc.DotNet.PracticaMAD.Model.SERVICES.Exceptions;
 using System;
@@ -9,15 +10,60 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
     public class ComentarioService : IComentarioService
     {
         private readonly IComentarioDao comentarioDao;
+        private readonly IEtiquetaDao etiquetaDao;
 
         public ComentarioService(IComentarioDao comentarioDao)
         {
             this.comentarioDao = comentarioDao;
         }
 
+        public ComentarioService(IComentarioDao comentarioDao, IEtiquetaDao etiquetaDao)
+        {
+            this.comentarioDao = comentarioDao;
+            this.etiquetaDao = etiquetaDao;
+        }
+
         public void CreateComentario (Comentario comentario)
         {
             comentarioDao.Create(comentario);
+        }
+
+        public long CreateComentarioConEtiquetas(long userId, long productoId, string texto, List<string> nombresEtiquetas)
+        {
+            Comentario comentario = new Comentario()
+            {
+                ProductoId = productoId,
+                AutorId = userId,
+                Texto = texto,
+                FechaCreacion = DateTime.UtcNow,
+                EnRevision = false
+            };
+
+            comentarioDao.Create(comentario);
+
+            if (nombresEtiquetas != null && nombresEtiquetas.Count > 0)
+            {
+                foreach (string nombre in nombresEtiquetas)
+                {
+                    string nombreLimpio = nombre.Trim().ToLower();
+                    if (string.IsNullOrEmpty(nombreLimpio))
+                    {
+                        continue;
+                    }
+
+                    Etiqueta etiqueta = etiquetaDao.FindByName(nombreLimpio);
+
+                    if (etiqueta == null)
+                    {
+                        etiqueta = new Etiqueta() { Nombre = nombreLimpio };
+                        etiquetaDao.Create(etiqueta);
+                    }
+
+                    comentario.Etiqueta.Add(etiqueta);
+                }
+                comentarioDao.Update(comentario);
+            }
+            return comentario.ComentarioId;
         }
 
         public void DeleteComentario (long userId, long comentarioId)

@@ -20,7 +20,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.DAO.EtiquetaDao
 
         public IDictionary<string, int> GetNubeEtiquetas()
         {
-            var query = Context.Set<Etiqueta>()
+            IDictionary<string, int> nubeEtiquetas = Context.Set<Etiqueta>()
                 .Select(e => new
                 {
                     NombreEtiqueta = e.Nombre,
@@ -29,7 +29,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.DAO.EtiquetaDao
                 .OrderByDescending(x => x.Contador)
                 .ToDictionary(x => x.NombreEtiqueta, x => x.Contador);
 
-            return query;
+            return nubeEtiquetas;
         }
 
         public List<Etiqueta> FindByComentarioId(long comentarioId)

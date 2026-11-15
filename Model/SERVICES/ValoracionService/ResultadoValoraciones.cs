@@ -13,14 +13,14 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
         public List<Valoracion> Valoraciones { get; private set; }
         public int TotalValoraciones { get; private set; }
         public double? MediaValoraciones { get; private set; }
-        public bool HasMoreElements { get; private set; }
+        public Block<Valoracion> ValoracionesBlock { get; set; }
 
-        public ResultadoValoraciones(List<Valoracion> valoraciones, int totalValoraciones, double? mediaValoraciones, bool hasMoreElements)
+        public ResultadoValoraciones(List<Valoracion> valoraciones, int totalValoraciones, double? mediaValoraciones, Block<Valoracion> valoracionesBlock)
         {
             Valoraciones = valoraciones;
             TotalValoraciones = totalValoraciones;
             MediaValoraciones = mediaValoraciones;
-            HasMoreElements = hasMoreElements;
+            ValoracionesBlock = valoracionesBlock;
         }
     }
 }

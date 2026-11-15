@@ -113,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SERVICES\EtiquetaServiceTest.cs" />
     <Compile Include="SERVICES\ReporteServiceTest.cs" />
     <Compile Include="SERVICES\ComentarioServiceTest.cs" />
     <Compile Include="SERVICES\ProductoServiceTest.cs" />

@@ -75,7 +75,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
 
                     double? media = valoracionService.ObtenerMediaValoracionesVendedor(vendedorId);
                     int total = valoracionService.ObtenerTotalValoracionesVendedor(vendedorId);
-                    ResultadoValoraciones resultadoPaginado = valoracionService.ObtenerValoracionesVendedor(vendedorId, 0, 10);
+                    ResultadoValoraciones resultadoPaginado = valoracionService.ObtenerValoracionesVendedor(vendedorId, 1, 10);
 
                     Assert.IsNotNull(media);
                     Assert.AreEqual(5.0, media.Value);
