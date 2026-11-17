@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Es.Udc.DotNet.MiniPortal.Web.Global" Language="C#" %>
+<%@ Application Codebehind="Global.asax.cs" Inherits="Es.Udc.DotNet.PracticaMAD.Web.Global" Language="C#" %>

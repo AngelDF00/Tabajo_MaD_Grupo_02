@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -106,25 +106,24 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Inicio.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HTTP\Session\SessionManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HTTP\Session\SpecificCulturePage.cs">
+    <Compile Include="Inicio.aspx.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="HTTP\Session\UserSession.cs" />
-    <Compile Include="HTTP\Util\CookiesManager.cs" />
-    <Compile Include="HTTP\View\ApplicationObjects\Countries.cs" />
-    <Compile Include="HTTP\View\ApplicationObjects\Languages.cs" />
-    <Compile Include="HTTP\View\ApplicationObjects\Locale.cs" />
-    <Compile Include="HTTP\Util\IoC\IoCManagerNinject.cs" />
+    <Compile Include="Inicio.aspx.designer.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_LocalResources\" />
+    <Folder Include="Css\" />
+    <Folder Include="Pages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -142,11 +141,7 @@
     <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.11.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
     <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.11.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_LocalResources\" />
-    <Folder Include="Css\" />
-    <Folder Include="Pages\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
