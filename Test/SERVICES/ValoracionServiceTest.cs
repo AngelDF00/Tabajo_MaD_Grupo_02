@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.PracticaMAD.Model.Entities;
+using Es.Udc.DotNet.PracticaMAD.Model.SERVICES;
 using Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService;
 using Es.Udc.DotNet.PracticaMAD.Model.UsuarioService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -75,15 +76,12 @@ namespace Es.Udc.DotNet.PracticaMAD.Test
 
                     double? media = valoracionService.ObtenerMediaValoracionesVendedor(vendedorId);
                     int total = valoracionService.ObtenerTotalValoracionesVendedor(vendedorId);
-                    ResultadoValoraciones resultadoPaginado = valoracionService.ObtenerValoracionesVendedor(vendedorId, 1, 10);
+                    Block<Valoracion> resultadoPaginado = valoracionService.ObtenerValoracionesVendedor(vendedorId, 1, 10);
 
                     Assert.IsNotNull(media);
                     Assert.AreEqual(5.0, media.Value);
                     Assert.AreEqual(1, total);
-                    Assert.AreEqual(1, resultadoPaginado.TotalValoraciones);
-                    Assert.IsNotNull(resultadoPaginado.MediaValoraciones);
-                    Assert.AreEqual(5.0, resultadoPaginado.MediaValoraciones.Value);
-                    Assert.AreEqual(1, resultadoPaginado.Valoraciones.Count);
+                    Assert.AreEqual(1, resultadoPaginado.items);
 
                     transaccion.Rollback();
                 }

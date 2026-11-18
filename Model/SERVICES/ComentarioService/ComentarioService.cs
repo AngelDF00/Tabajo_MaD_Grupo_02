@@ -23,12 +23,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
             this.etiquetaDao = etiquetaDao;
         }
 
-        public void CreateComentario (Comentario comentario)
-        {
-            comentarioDao.Create(comentario);
-        }
-
-        public long CreateComentarioConEtiquetas(long userId, long productoId, string texto, List<string> nombresEtiquetas)
+        public long CreateComentario(long userId, long productoId, string texto, List<string> nombresEtiquetas)
         {
             Comentario comentario = new Comentario()
             {
@@ -65,6 +60,8 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ComentarioService
             }
             return comentario.ComentarioId;
         }
+
+
 
         public void DeleteComentario (long userId, long comentarioId)
         {

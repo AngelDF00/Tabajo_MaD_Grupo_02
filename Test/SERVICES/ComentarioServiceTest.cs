@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Collections.Generic;
 using Castle.Core.Internal;
 using Es.Udc.DotNet.PracticaMAD.Model.Entities;
 using Es.Udc.DotNet.PracticaMAD.Model.SERVICES;
@@ -14,57 +15,6 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
     [TestClass]
     public class ComentarioServiceTest
     {
-        [TestMethod]
-        public void CreateComentarioGuardaElComentario()
-        {
-            IKernel kernel = TestManager.ConfigureNInjectKernel();
-
-            try
-            {
-                DbContext contexto = kernel.Get<DbContext>();
-                IComentarioService comentarioService = kernel.Get<IComentarioService>();
-                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
-
-                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
-                {
-                    Producto producto = CrearProducto(
-                        contexto,
-                        usuarioService);
-
-                    Comentario comentario = new Comentario
-                    {
-                        ProductoId = producto.ProductoId,
-                        AutorId = producto.VendedorId,
-                        Texto = "Comentario de prueba",
-                        FechaCreacion = DateTime.UtcNow,
-                        EnRevision = false
-                    };
-
-                    comentarioService.CreateComentario(comentario);
-
-                    Comentario comentarioGuardado = contexto.Set<Comentario>()
-                        .SingleOrDefault(c =>
-                            c.ComentarioId == comentario.ComentarioId);
-
-                    Assert.IsNotNull(comentarioGuardado);
-                    Assert.AreEqual(
-                        comentario.ProductoId,
-                        comentarioGuardado.ProductoId);
-                    Assert.AreEqual(
-                        comentario.AutorId,
-                        comentarioGuardado.AutorId);
-                    Assert.AreEqual(
-                        comentario.Texto,
-                        comentarioGuardado.Texto);
-
-                    transaccion.Rollback();
-                }
-            }
-            finally
-            {
-                TestManager.ClearNInjectKernel(kernel);
-            }
-        }
 
         [TestMethod]
         public void DeleteComentarioEliminaElComentarioDelAutor()
@@ -343,6 +293,80 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                         otroUsuarioId,
                         "Texto modificado por otro usuario",
                         comentario.ComentarioId);
+
+                    transaccion.Rollback();
+                }
+            }
+            finally
+            {
+                TestManager.ClearNInjectKernel(kernel);
+            }
+        }
+
+        [TestMethod]
+        public void CreateComentarioGuardaElComentarioYsusEtiquetas()
+        {
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
+
+            try
+            {
+                DbContext contexto = kernel.Get<DbContext>();
+                IComentarioService comentarioService =
+                    kernel.Get<IComentarioService>();
+                IUsuarioService usuarioService =
+                    kernel.Get<IUsuarioService>();
+
+                using (DbContextTransaction transaccion =
+                    contexto.Database.BeginTransaction())
+                {
+                    Producto producto = CrearProducto(
+                        contexto,
+                        usuarioService);
+
+                    string sufijo = Guid.NewGuid()
+                        .ToString("N")
+                        .Substring(0, 8);
+
+                    List<string> nombresEtiquetas = new List<string>
+                    {
+                        "Tecnologia_" + sufijo,
+                        "Oferta_" + sufijo
+                    };
+
+                    long comentarioId = comentarioService.CreateComentario(
+                        producto.VendedorId,
+                        producto.ProductoId,
+                        "Comentario de prueba",
+                        nombresEtiquetas);
+
+                    Comentario comentarioGuardado = contexto.Set<Comentario>()
+                        .Include(c => c.Etiqueta)
+                        .SingleOrDefault(c =>
+                            c.ComentarioId == comentarioId);
+
+                    Assert.IsNotNull(comentarioGuardado);
+                    Assert.AreEqual(
+                        producto.ProductoId,
+                        comentarioGuardado.ProductoId);
+                    Assert.AreEqual(
+                        producto.VendedorId,
+                        comentarioGuardado.AutorId);
+                    Assert.AreEqual(
+                        "Comentario de prueba",
+                        comentarioGuardado.Texto);
+                    Assert.IsFalse(comentarioGuardado.EnRevision);
+
+                    Assert.AreEqual(
+                        2,
+                        comentarioGuardado.Etiqueta.Count);
+
+                    CollectionAssert.AreEquivalent(
+                        nombresEtiquetas
+                            .Select(nombre => nombre.ToLower())
+                            .ToList(),
+                        comentarioGuardado.Etiqueta
+                            .Select(etiqueta => etiqueta.Nombre)
+                            .ToList());
 
                     transaccion.Rollback();
                 }
