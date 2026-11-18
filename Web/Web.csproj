@@ -103,12 +103,116 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ComentariosProducto.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Inicio.aspx" />
+    <Content Include="Pages\Usuarios\Acceso.aspx" />
+    <Content Include="Pages\Usuarios\Registro.aspx" />
+    <Content Include="Pages\Usuarios\MiPerfil.aspx" />
+    <Content Include="Pages\Usuarios\EditarPerfil.aspx" />
+    <Content Include="Pages\Usuarios\CambiarContrasena.aspx" />
+    <Content Include="Pages\Productos\Buscar.aspx" />
+    <Content Include="Pages\Productos\Detalle.aspx" />
+    <Content Include="Pages\Comentarios\Nuevo.aspx" />
+    <Content Include="Pages\Comentarios\Editar.aspx" />
+    <Content Include="Pages\Comentarios\Reportar.aspx" />
+    <Content Include="Pages\Vendedores\Perfil.aspx" />
+    <Content Include="Pages\Vendedores\Valorar.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComentariosProducto.aspx.cs">
+      <DependentUpon>ComentariosProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ComentariosProducto.aspx.designer.cs">
+      <DependentUpon>ComentariosProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Usuarios\Acceso.aspx.cs">
+      <DependentUpon>Acceso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Usuarios\Acceso.aspx.designer.cs">
+      <DependentUpon>Acceso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Usuarios\Registro.aspx.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Usuarios\Registro.aspx.designer.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Usuarios\MiPerfil.aspx.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Usuarios\MiPerfil.aspx.designer.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Usuarios\EditarPerfil.aspx.cs">
+      <DependentUpon>EditarPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Usuarios\EditarPerfil.aspx.designer.cs">
+      <DependentUpon>EditarPerfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Usuarios\CambiarContrasena.aspx.cs">
+      <DependentUpon>CambiarContrasena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Usuarios\CambiarContrasena.aspx.designer.cs">
+      <DependentUpon>CambiarContrasena.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Productos\Buscar.aspx.cs">
+      <DependentUpon>Buscar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Productos\Buscar.aspx.designer.cs">
+      <DependentUpon>Buscar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Productos\Detalle.aspx.cs">
+      <DependentUpon>Detalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Productos\Detalle.aspx.designer.cs">
+      <DependentUpon>Detalle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Comentarios\Nuevo.aspx.cs">
+      <DependentUpon>Nuevo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Comentarios\Nuevo.aspx.designer.cs">
+      <DependentUpon>Nuevo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Comentarios\Editar.aspx.cs">
+      <DependentUpon>Editar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Comentarios\Editar.aspx.designer.cs">
+      <DependentUpon>Editar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Comentarios\Reportar.aspx.cs">
+      <DependentUpon>Reportar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Comentarios\Reportar.aspx.designer.cs">
+      <DependentUpon>Reportar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Vendedores\Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Vendedores\Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Vendedores\Valorar.aspx.cs">
+      <DependentUpon>Valorar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Vendedores\Valorar.aspx.designer.cs">
+      <DependentUpon>Valorar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
