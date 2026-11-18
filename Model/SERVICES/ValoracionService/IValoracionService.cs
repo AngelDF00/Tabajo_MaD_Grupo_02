@@ -13,7 +13,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
         /// <exception cref="InvalidOperationException">El usuario ya ha valorado el producto.</exception>
         long ValorarVendedor(long autorId, long productoId, int voto, string comentario);
 
-        Block<Valoracion ObtenerValoracionesVendedor(long vendedorId, int startIndex, int count);
+        Block<Valoracion> ObtenerValoracionesVendedor(long vendedorId, int startIndex, int count);
 
         int ObtenerTotalValoracionesVendedor(long vendedorId);
 
