@@ -32,14 +32,14 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
                     long compradorId = CrearUsuario(usuarioService, "comprador_etiqueta");
 
                     List<string> etiquetasPrimerComentario = new List<string> { "ganga", "OFERTA" };
-                    long comentarioId1 = comentarioService.CreateComentarioConEtiquetas(
+                    long comentarioId1 = comentarioService.CreateComentario(
                         compradorId, producto.ProductoId, "Muy buen producto y barato", etiquetasPrimerComentario);
 
                     List<Etiqueta> etiquetasAsociadas = etiquetaService.ObtenerEtiquetasPorComentario(comentarioId1);
                     Assert.AreEqual(2, etiquetasAsociadas.Count);
 
                     List<string> etiquetasSegundoComentario = new List<string> { "GANGA", "pesimo" };
-                    long comentarioId2 = comentarioService.CreateComentarioConEtiquetas(
+                    long comentarioId2 = comentarioService.CreateComentario(
                         compradorId, producto.ProductoId, "No me ha gustado tanto", etiquetasSegundoComentario);
 
                     IDictionary<string, int> nubeEtiquetas = etiquetaService.ObtenerNubeEtiquetas();
