@@ -63,6 +63,40 @@ namespace Es.Udc.DotNet.PracticaMAD.Test.SERVICES
             }
         }
 
+        [TestMethod]
+        public void ComentarioSinEtiquetasDevuelveListaVacia()
+        {
+            IKernel kernel = TestManager.ConfigureNInjectKernel();
+
+            try
+            {
+                DbContext contexto = kernel.Get<DbContext>();
+                IComentarioService comentarioService = kernel.Get<IComentarioService>();
+                IEtiquetaService etiquetaService = kernel.Get<IEtiquetaService>();
+                IUsuarioService usuarioService = kernel.Get<IUsuarioService>();
+
+                using (DbContextTransaction transaccion = contexto.Database.BeginTransaction())
+                {
+                    Producto producto = CrearProducto(contexto, usuarioService);
+                    long compradorId = CrearUsuario(usuarioService, "comp_sin_etiq");
+
+                    long comentarioId = comentarioService.CreateComentario(
+                        compradorId, producto.ProductoId, "Comentario sin etiquetas", new List<string>());
+
+                    List<Etiqueta> etiquetas = etiquetaService.ObtenerEtiquetasPorComentario(comentarioId);
+
+                    Assert.IsNotNull(etiquetas);
+                    Assert.AreEqual(0, etiquetas.Count);
+
+                    transaccion.Rollback();
+                }
+            }
+            finally
+            {
+                TestManager.ClearNInjectKernel(kernel);
+            }
+        }
+
         private static Producto CrearProducto(DbContext contexto, IUsuarioService usuarioService)
         {
             long vendedorId = CrearUsuario(usuarioService, "vendedor");

@@ -30,13 +30,13 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
             Producto producto = productoDao.Find(productoId);
             if (producto == null)
             {
-                throw new Exception("El producto especificado no existe.");
+                throw new KeyNotFoundException("El producto especificado no existe.");
             }
 
             Usuario autor = usuarioDao.Find(autorId);
             if (autor == null)
             {
-                throw new Exception("El usuario autor no existe.");
+                throw new KeyNotFoundException("El usuario autor no existe.");
             }
 
             if (valoracionDao.ExistsByProductoAndAutor(productoId, autorId))
@@ -60,11 +60,21 @@ namespace Es.Udc.DotNet.PracticaMAD.Model.SERVICES.ValoracionService
 
         public Block<Valoracion> ObtenerValoracionesVendedor(long vendedorId, int page, int count)
         {
+            if (page < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(page), "La página debe ser mayor o igual que 1.");
+            }
+
+            if (count < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(count), "El tamaño de página debe ser mayor o igual que 1.");
+            }
+
             int startIndex = (page - 1) * count;
             List<Valoracion> items = valoracionDao.FindByVendedorId(vendedorId, startIndex, count + 1);
 
-            bool existMoreItems;
-            if (existMoreItems = (items.Count > count))
+            bool existMoreItems = items.Count > count;
+            if (existMoreItems)
             {
                 items.RemoveAt(count);
             }
