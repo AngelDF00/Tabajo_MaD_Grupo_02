@@ -9,6 +9,15 @@ namespace Es.Udc.DotNet.PracticaMAD.Web.Pages.Usuarios
 {
     public partial class Acceso : System.Web.UI.Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack && Session["RegistroCorrecto"] != null)
+            {
+                Session.Remove("RegistroCorrecto");
+                lblReg.Text = "Registro completado. Ya puedes iniciar sesión.";
+            }
+        }
+
         protected void CheckBox1_CheckedChanged(object sender, System.EventArgs e)
         {
 
@@ -21,6 +30,7 @@ namespace Es.Udc.DotNet.PracticaMAD.Web.Pages.Usuarios
 
         protected void btnAcceder_Click(object sender, System.EventArgs e)
         {
+            lblReg.Text = string.Empty;
             lblError.Text = string.Empty;
 
             string login = txtLogin.Text.Trim();
